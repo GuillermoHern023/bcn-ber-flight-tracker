@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>BCN ➔ BER Flight Price Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+    }
+    canvas {
+      touch-action: pan-y;
+    }
+    /* Hide scrollbar for Chrome, Safari and Opera on filter pills */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen pb-20 md:pb-10">
+
+  <!-- Top Navigation / Banner -->
+  <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="inline-flex flex-wrap items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-200 text-[11px] px-3 py-1 rounded-full uppercase tracking-wider font-semibold mb-2.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Live Monitor • Updated Oct 22, 10:38</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight flex flex-wrap items-center gap-2 sm:gap-3">
+            <span>Barcelona (BCN)</span>
+            <span class="text-blue-400">➔</span>
+            <span>Berlin (BER)</span>
+          </h1>
+          <p class="text-slate-300 text-xs sm:text-sm mt-1">One-Way Direct Flights • Jan 3 &amp; 4, 2027 (Departures &ge; 10:00 AM)</p>
+        </div>
+
+        <div class="flex items-center justify-between sm:justify-start gap-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2.5">
+          <div class="text-left sm:text-center">
+            <div class="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wide">Booking Deadline</div>
+            <div class="text-sm sm:text-lg font-bold text-amber-300">Nov 15, 2026 <span class="text-xs font-normal text-slate-300">(24d left)</span></div>
+          </div>
+          <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg shadow transition shrink-0">
+            Export PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Mobile Quick-Jump Bar -->
+  <nav class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs md:hidden">
+    <div class="max-w-7xl mx-auto px-3 py-2 flex items-center justify-around gap-1 text-xs font-bold">
+      <a href="#section-kpis" class="flex-1 text-center py-1.5 px-2 rounded-lg text-slate-700 hover:bg-slate-100 active:bg-slate-200 transition">📌 Summary</a>
+      <a href="#section-flights" class="flex-1 text-center py-1.5 px-2 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 transition">✈️ Flights (9)</a>
+      <a href="#section-charts" class="flex-1 text-center py-1.5 px-2 rounded-lg text-slate-700 hover:bg-slate-100 active:bg-slate-200 transition">📊 Charts</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
+    
+    <!-- Top KPI Cards: 2x2 Grid on Mobile, 4-col on Desktop -->
+    <section id="section-kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 scroll-mt-14">
+      <!-- Lowest Price Card -->
+      <div class="glass-card rounded-2xl p-3.5 sm:p-5 shadow-xs">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Lowest Fare</span>
+          <span class="p-1.5 sm:p-2 bg-emerald-100 text-emerald-700 rounded-lg sm:rounded-xl shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+        </div>
+        <div class="mt-2 sm:mt-3">
+          <div class="text-xl sm:text-3xl font-extrabold text-emerald-600 leading-tight">€136.39</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-0.5">2027-01-04 (Ryanair)</div>
+        </div>
+      </div>
+
+      <!-- Average Price Card -->
+      <div class="glass-card rounded-2xl p-3.5 sm:p-5 shadow-xs">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Average (Top 3)</span>
+          <span class="p-1.5 sm:p-2 bg-blue-100 text-blue-700 rounded-lg sm:rounded-xl shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </span>
+        </div>
+        <div class="mt-2 sm:mt-3">
+          <div class="text-xl sm:text-3xl font-extrabold text-blue-600 leading-tight">€211.86</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Median: <strong>€208.00</strong></div>
+        </div>
+      </div>
+
+      <!-- Departure Split -->
+      <div class="glass-card rounded-2xl p-3.5 sm:p-5 shadow-xs">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Jan 3 vs Jan 4</span>
+          <span class="p-1.5 sm:p-2 bg-indigo-100 text-indigo-700 rounded-lg sm:rounded-xl shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </span>
+        </div>
+        <div class="mt-2 sm:mt-3 flex items-baseline justify-between gap-1">
+          <div>
+            <div class="text-[10px] text-slate-500 font-semibold">Jan 3</div>
+            <div class="text-sm sm:text-xl font-bold text-slate-800">€265</div>
+          </div>
+          <div class="h-6 w-px bg-slate-200"></div>
+          <div>
+            <div class="text-[10px] text-slate-500 font-semibold">Jan 4</div>
+            <div class="text-sm sm:text-xl font-bold text-emerald-600">€136.39</div>
+          </div>
+        </div>
+        <div class="mt-1 text-[10px] sm:text-xs text-emerald-600 font-semibold truncate">Jan 4 saves €128.61</div>
+      </div>
+
+      <!-- Most Affordable Airline -->
+      <div class="glass-card rounded-2xl p-3.5 sm:p-5 shadow-xs">
+        <div class="flex items-center justify-between gap-1">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Best Airline</span>
+          <span class="p-1.5 sm:p-2 bg-orange-100 text-orange-700 rounded-lg sm:rounded-xl shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </span>
+        </div>
+        <div class="mt-2 sm:mt-3">
+          <div class="text-lg sm:text-2xl font-extrabold text-orange-600 leading-tight truncate">Ryanair</div>
+          <div class="text-[10px] sm:text-xs text-slate-500 truncate mt-0.5">Avg €196 • Vueling: €204 • easyJet: €344</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Possible Flights Section (Placed high for immediate mobile usability) -->
+    <section id="section-flights" class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs space-y-4 sm:space-y-5 scroll-mt-14">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 border-b border-slate-200 pb-4">
+        <div>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">All Possible Direct Flights by Day (9 Options)</h2>
+          <p class="text-xs text-slate-500">Every available nonstop flight departing at or after 10:00 AM local time</p>
+        </div>
+
+        <!-- Touch-Friendly Filter Controls -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex bg-slate-100 p-1 rounded-xl w-full sm:w-auto">
+            <button id="btn-date-all" onclick="setDateFilter('all')" class="flex-1 sm:flex-initial px-3 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white shadow-xs transition">All Dates</button>
+            <button id="btn-date-jan3" onclick="setDateFilter('2027-01-03')" class="flex-1 sm:flex-initial px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-700 hover:bg-white/60 transition">Sun, Jan 3</button>
+            <button id="btn-date-jan4" onclick="setDateFilter('2027-01-04')" class="flex-1 sm:flex-initial px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-700 hover:bg-white/60 transition">Mon, Jan 4</button>
+          </div>
+          <button id="btn-top3-toggle" onclick="toggleTop3Only()" class="w-full sm:w-auto px-3 py-2 text-xs font-bold rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition">
+            Showing: All Flights (Tap for Top 3 Only)
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile & Tablet Native Card View (Visible on screens < md) -->
+      <div class="block md:hidden space-y-5" id="mobileFlightContainer">
+        
+        <div class="flight-day-group space-y-3" data-date-group="2027-01-03">
+          <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-extrabold tracking-tight">📅 Sunday, Jan 3, 2027</span>
+              <span class="text-[11px] bg-white/15 text-blue-200 px-2 py-0.5 rounded-full font-semibold">4 flights</span>
+            </div>
+            <span class="text-xs font-bold text-emerald-300">From €265.00</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-amber-100 text-amber-900 border-amber-200">
+                    Vueling
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€265.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">13:05</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">15:45</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
+                    Ryanair
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR133</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€281.79</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">16:55</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:35</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Ryanair.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-amber-100 text-amber-900 border-amber-200">
+                    Vueling
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€286.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">18:00</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">20:40</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-orange-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="false">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-orange-100 text-orange-800 border-orange-200">
+                    easyJet
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">U2 Nonstop</span>
+                  <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #4</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€344.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">17:50</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">20:40</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.easyjet.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>easyJet.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div class="flight-day-group space-y-3" data-date-group="2027-01-04">
+          <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-extrabold tracking-tight">📅 Monday, Jan 4, 2027</span>
+              <span class="text-[11px] bg-white/15 text-blue-200 px-2 py-0.5 rounded-full font-semibold">5 flights</span>
+            </div>
+            <span class="text-xs font-bold text-emerald-300">From €136.39</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
+                    Ryanair
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR149</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€136.39</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:00</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">21:40</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Ryanair.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-amber-100 text-amber-900 border-amber-200">
+                    Vueling
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€151.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">14:50</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">17:25</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-amber-100 text-amber-900 border-amber-200">
+                    Vueling
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€151.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">18:00</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">20:40</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="false">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
+                    Ryanair
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR Nonstop</span>
+                  <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #4</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€164.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">11:50</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">14:30</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Ryanair.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="false">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-amber-100 text-amber-900 border-amber-200">
+                    Vueling
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
+                  <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #5</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€175.00</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">13:15</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">15:55</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- Desktop Full Table View (Visible on screens >= md) -->
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+          <thead class="bg-slate-100/80 text-slate-700 uppercase text-[11px] font-bold tracking-wider">
+            <tr>
+              <th class="px-4 py-3 rounded-l-lg">Departure Date</th>
+              <th class="px-4 py-3">Airline</th>
+              <th class="px-4 py-3">Flight No</th>
+              <th class="px-4 py-3">Departure</th>
+              <th class="px-4 py-3">Arrival</th>
+              <th class="px-4 py-3">Duration</th>
+              <th class="px-4 py-3">Price &amp; Rank</th>
+              <th class="px-4 py-3 rounded-r-lg text-right">Booking Links</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="flightTableBody">
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-03</div>
+                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
+                  Vueling
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">VY Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">13:05 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">15:45 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-emerald-600">€265.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-03</div>
+                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
+                  Ryanair
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR133</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">16:55 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:35 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€281.79</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-03</div>
+                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
+                  Vueling
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">VY Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">18:00 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">20:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€286.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="false">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-03</div>
+                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-orange-100 text-orange-800 border-orange-200">
+                  easyJet
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">U2 Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">17:50 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">20:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€344.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #4</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.easyjet.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">easyJet ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
+                  Ryanair
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR149</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:00 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">21:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-emerald-600">€136.39</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
+                  Vueling
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">VY Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">14:50 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">17:25 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€151.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
+                  Vueling
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">VY Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">18:00 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">20:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€151.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="false">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
+                  Ryanair
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">11:50 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">14:30 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€164.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #4</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="false">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
+                  Vueling
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">VY Nonstop</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">13:15 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">15:55 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€175.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-semibold">Option #5</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Main Visualizations Grid -->
+    <section id="section-charts" class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 scroll-mt-14">
+      
+      <!-- Graph 1: Airline Price Distribution -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs">
+        <div class="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Airline Cost Analysis</h2>
+            <p class="text-[11px] sm:text-xs text-slate-500">Min, Median, Average, and Max fares per airline</p>
+          </div>
+          <span class="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md font-semibold shrink-0">EUR (€)</span>
+        </div>
+        <div class="h-60 sm:h-72">
+          <canvas id="airlineStatsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Graph 2: Price Trajectory Over Time -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs">
+        <div class="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Price Trend History</h2>
+            <p class="text-[11px] sm:text-xs text-slate-500">Tracked lowest &amp; average fares over time</p>
+          </div>
+          <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold shrink-0">3x Daily</span>
+        </div>
+        <div class="h-60 sm:h-72">
+          <canvas id="priceTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Graph 3: Departure Date Comparison -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs">
+        <div class="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Sunday vs Monday Fare Metrics</h2>
+            <p class="text-[11px] sm:text-xs text-slate-500">Min, Median, and Average comparison (Jan 3 vs Jan 4)</p>
+          </div>
+          <span class="text-[11px] bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-md font-semibold shrink-0">Date Shift</span>
+        </div>
+        <div class="h-60 sm:h-72">
+          <canvas id="dateComparisonChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Graph 4: Time of Day vs Price Distribution -->
+      <div class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs">
+        <div class="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Departure Time vs Fare Matrix</h2>
+            <p class="text-[11px] sm:text-xs text-slate-500">Flight prices plotted against local departure hour</p>
+          </div>
+          <span class="text-[11px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md font-semibold shrink-0">10:00–21:00</span>
+        </div>
+        <div class="h-60 sm:h-72">
+          <canvas id="timeOfDayChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 py-6 border-t border-slate-200">
+      Flight Price Monitor Automation • 3x Daily Checks (08:00, 14:00, 20:00 CET) • Cutoff Date: November 15, 2026
+    </footer>
+  </main>
+
+  <!-- Interactive Chart & Filter Script -->
+  <script>
+    const statsData = {"airline_stats": {"Vueling": {"min": 151.0, "max": 286.0, "avg": 203.88, "median": 151.0, "count": 24}, "Ryanair": {"min": 136.39, "max": 281.79, "avg": 196.21, "median": 164.0, "count": 14}, "easyJet": {"min": 344.0, "max": 344.0, "avg": 344.0, "median": 344.0, "count": 4}}, "date_stats": {"2027-01-03": {"min": 265.0, "max": 344.0, "avg": 291.58, "median": 281.79, "count": 19}, "2027-01-04": {"min": 136.39, "max": 175.0, "avg": 151.13, "median": 151.0, "count": 23}}, "daily_trends": [{"search_date": "10-21 23:05", "min_price": 136.39, "avg_price": 211.86, "max_price": 286.0}, {"search_date": "10-21 23:11", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-21 23:35", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 00:34", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 10:38", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}], "hourly_data": [{"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}]};
+    const flightData = {"2027-01-03": [{"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:05", "arrival_time": "15:45", "price": 265.0, "price_str": "EUR 265.00", "date": "2027-01-03"}, {"airline": "Ryanair", "flight_number": "FR133", "departure_time": "16:55", "arrival_time": "19:35", "price": 281.79, "price_str": "EUR 281.79", "date": "2027-01-03"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 286.0, "price_str": "EUR 286.00", "date": "2027-01-03"}, {"airline": "easyJet", "flight_number": "U2 Nonstop", "departure_time": "17:50", "arrival_time": "20:40", "price": 344.0, "price_str": "EUR 344.00", "date": "2027-01-03"}], "2027-01-04": [{"airline": "Ryanair", "flight_number": "FR149", "departure_time": "19:00", "arrival_time": "21:40", "price": 136.39, "price_str": "EUR 136.39", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "14:50", "arrival_time": "17:25", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Ryanair", "flight_number": "FR Nonstop", "departure_time": "11:50", "arrival_time": "14:30", "price": 164.0, "price_str": "EUR 164.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:15", "arrival_time": "15:55", "price": 175.0, "price_str": "EUR 175.00", "date": "2027-01-04"}]};
+    const isMobile = window.innerWidth < 640;
+
+    const commonLegend = {
+      position: 'bottom',
+      labels: {
+        boxWidth: isMobile ? 10 : 14,
+        padding: isMobile ? 10 : 16,
+        font: { size: isMobile ? 10 : 12 }
+      }
+    };
+
+    // 1. Airline Stats Chart
+    const airlineLabels = Object.keys(statsData.airline_stats);
+    new Chart(document.getElementById('airlineStatsChart'), {
+      type: 'bar',
+      data: {
+        labels: airlineLabels,
+        datasets: [
+          { label: 'Lowest (€)', data: airlineLabels.map(a => statsData.airline_stats[a].min), backgroundColor: '#10B981', borderRadius: 4 },
+          { label: 'Median (€)', data: airlineLabels.map(a => statsData.airline_stats[a].median), backgroundColor: '#3B82F6', borderRadius: 4 },
+          { label: 'Average (€)', data: airlineLabels.map(a => statsData.airline_stats[a].avg), backgroundColor: '#8B5CF6', borderRadius: 4 },
+          { label: 'Highest (€)', data: airlineLabels.map(a => statsData.airline_stats[a].max), backgroundColor: '#EF4444', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: commonLegend },
+        scales: {
+          y: { beginAtZero: true, ticks: { font: { size: isMobile ? 10 : 12 } }, title: { display: !isMobile, text: 'Price (EUR)' } },
+          x: { ticks: { font: { size: isMobile ? 11 : 12 } } }
+        }
+      }
+    });
+
+    // 2. Price Trend Chart
+    const trendDates = statsData.daily_trends.map(t => t.search_date);
+    new Chart(document.getElementById('priceTrendChart'), {
+      type: 'line',
+      data: {
+        labels: trendDates,
+        datasets: [
+          {
+            label: 'Lowest (€)',
+            data: statsData.daily_trends.map(t => t.min_price),
+            borderColor: '#10B981',
+            backgroundColor: 'rgba(16, 185, 129, 0.12)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 2.5,
+            pointRadius: isMobile ? 3 : 4
+          },
+          {
+            label: 'Average (€)',
+            data: statsData.daily_trends.map(t => t.avg_price),
+            borderColor: '#3B82F6',
+            backgroundColor: 'transparent',
+            borderDash: [4, 4],
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: isMobile ? 3 : 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: commonLegend },
+        scales: {
+          y: { ticks: { font: { size: isMobile ? 10 : 12 } }, title: { display: !isMobile, text: 'Fare in EUR' } },
+          x: { ticks: { font: { size: isMobile ? 9 : 11 }, maxRotation: 30 } }
+        }
+      }
+    });
+
+    // 3. Date Comparison Chart
+    const dateLabels = Object.keys(statsData.date_stats);
+    new Chart(document.getElementById('dateComparisonChart'), {
+      type: 'bar',
+      data: {
+        labels: dateLabels.map(d => d === '2027-01-03' ? 'Sun, Jan 3' : 'Mon, Jan 4'),
+        datasets: [
+          { label: 'Min (€)', data: dateLabels.map(d => statsData.date_stats[d].min), backgroundColor: '#10B981', borderRadius: 4 },
+          { label: 'Median (€)', data: dateLabels.map(d => statsData.date_stats[d].median), backgroundColor: '#6366F1', borderRadius: 4 },
+          { label: 'Avg (€)', data: dateLabels.map(d => statsData.date_stats[d].avg), backgroundColor: '#F59E0B', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: commonLegend },
+        scales: {
+          y: { beginAtZero: true, ticks: { font: { size: isMobile ? 10 : 12 } } },
+          x: { ticks: { font: { size: isMobile ? 11 : 12 } } }
+        }
+      }
+    });
+
+    // 4. Departure Time vs Price Matrix
+    const timePoints = statsData.hourly_data.map(h => ({
+      x: h.hour,
+      y: h.price,
+      label: `${h.airline} (${h.time_str} on ${h.departure_date.slice(5)})`
+    }));
+
+    new Chart(document.getElementById('timeOfDayChart'), {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Flight Departures (Hour vs Price)',
+          data: timePoints,
+          backgroundColor: '#3B82F6',
+          pointRadius: isMobile ? 5 : 6,
+          pointHoverRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { min: 10, max: 21, ticks: { font: { size: isMobile ? 10 : 12 }, callback: v => v + ':00' }, title: { display: !isMobile, text: 'Departure Hour (24h)' } },
+          y: { ticks: { font: { size: isMobile ? 10 : 12 } }, title: { display: !isMobile, text: 'Price (€)' } }
+        },
+        plugins: {
+          legend: commonLegend,
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const pt = timePoints[context.dataIndex];
+                return `${pt.label}: €${pt.y}`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Unified Filtering for both Mobile Cards & Desktop Table
+    let currentDateFilter = 'all';
+    let top3Only = false;
+
+    function applyFilters() {
+      const items = document.querySelectorAll('.flight-item');
+      items.forEach(el => {
+        const matchesDate = (currentDateFilter === 'all' || el.getAttribute('data-date') === currentDateFilter);
+        const matchesRank = (!top3Only || el.getAttribute('data-top3') === 'true');
+        el.style.display = (matchesDate && matchesRank) ? '' : 'none';
+      });
+
+      const groups = document.querySelectorAll('.flight-day-group');
+      groups.forEach(g => {
+        const groupDate = g.getAttribute('data-date-group');
+        g.style.display = (currentDateFilter === 'all' || groupDate === currentDateFilter) ? '' : 'none';
+      });
+    }
+
+    function setDateFilter(val) {
+      currentDateFilter = val;
+      const btnMap = {
+        'all': document.getElementById('btn-date-all'),
+        '2027-01-03': document.getElementById('btn-date-jan3'),
+        '2027-01-04': document.getElementById('btn-date-jan4')
+      };
+      Object.keys(btnMap).forEach(k => {
+        if (k === val) {
+          btnMap[k].className = 'flex-1 sm:flex-initial px-3 py-1.5 text-xs font-bold rounded-lg bg-blue-600 text-white shadow-xs transition';
+        } else {
+          btnMap[k].className = 'flex-1 sm:flex-initial px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-700 hover:bg-white/60 transition';
+        }
+      });
+      applyFilters();
+    }
+
+    function toggleTop3Only() {
+      top3Only = !top3Only;
+      const btn = document.getElementById('btn-top3-toggle');
+      if (top3Only) {
+        btn.textContent = 'Showing: Top 3 Per Day (Tap for All)';
+        btn.className = 'w-full sm:w-auto px-3 py-2 text-xs font-bold rounded-xl border border-blue-300 bg-blue-50 text-blue-700 transition';
+      } else {
+        btn.textContent = 'Showing: All Flights (Tap for Top 3 Only)';
+        btn.className = 'w-full sm:w-auto px-3 py-2 text-xs font-bold rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition';
+      }
+      applyFilters();
+    }
+  </script>
+</body>
+</html>

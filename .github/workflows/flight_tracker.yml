@@ -1,0 +1,56 @@
+name: BCN to BER Flight Price Tracker (3x Daily Cloud Automation)
+
+on:
+  schedule:
+    # Runs 3x daily at 08:00, 14:00, and 20:00 Europe/Madrid
+    - cron: "0 6,12,18 * * *"
+  workflow_dispatch:
+    inputs:
+      force_summary:
+        description: "Force send daily summary email even if already sent today"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  track-flights:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/Madrid
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+      DASHBOARD_URL: "https://guillermohern023.github.io/bcn-ber-flight-tracker/dashboard.html"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ryanair-py beautifulsoup4
+
+      - name: Execute Flight Tracker & Email Engine
+        run: |
+          if [ "${{ github.event.inputs.force_summary }}" = "true" ]; then
+            python flight_tracker.py --force-summary
+          else
+            python flight_tracker.py
+          fi
+
+      - name: Commit & Push Updated Database & Live Dashboard to GitHub Pages
+        run: |
+          git config user.name "Antigravity Flight Tracker Bot"
+          git config user.email "guillejhl@gmail.com"
+          git add flight_history.db flight_data.json dashboard.html index.html latest_flight_report.txt
+          git diff --staged --quiet || (git commit -m "chore(tracker): automated flight price & dashboard update [skip ci]" && git push)

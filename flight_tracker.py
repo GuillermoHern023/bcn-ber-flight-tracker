@@ -125,12 +125,13 @@ def search_ryanair_flights(date_str):
     return results
 
 def scrape_live_google_flights(date_str):
-    url = f"https://www.google.com/travel/flights?q=one-way%20flights%20from%20{ORIGIN}%20to%20{DESTINATION}%20on%20{date_str}%20nonstop"
+    url = f"https://www.google.com/travel/flights?q=one-way%20flights%20from%20{ORIGIN}%20to%20{DESTINATION}%20on%20{date_str}%20nonstop&curr=EUR&hl=en"
     req = urllib.request.Request(
         url,
         headers={
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9"
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cookie": "CONSENT=YES+cb.20230531-04-p0.en+FX+908; SOCS=CAISHAgBEhJnd3NfMjAyMzA4MTUtMF9SQzIaAmVuIAEaBgiAo_CmBg"
         }
     )
     flights = []

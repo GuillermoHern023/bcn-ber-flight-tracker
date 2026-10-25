@@ -2,8 +2,9 @@ name: BCN to BER Flight Price Tracker (3x Daily Cloud Automation)
 
 on:
   schedule:
-    # Runs 3x daily at 08:00, 14:00, and 20:00 Europe/Madrid
-    - cron: "0 6,12,18 * * *"
+    # Runs 3x daily at off-peak minute :23 (07:23, 13:23, 19:23 Europe/Madrid CET)
+    # Using minute :23 avoids the top-of-the-hour (:00) GitHub Actions queue bottleneck
+    - cron: "23 6,12,18 * * *"
   workflow_dispatch:
     inputs:
       force_summary:

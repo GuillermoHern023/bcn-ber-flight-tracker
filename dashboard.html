@@ -45,7 +45,7 @@
         <div>
           <div class="inline-flex flex-wrap items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-200 text-[11px] px-3 py-1 rounded-full uppercase tracking-wider font-semibold mb-2.5">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Live Monitor • Updated Oct 26, 00:21</span>
+            <span>Live Monitor • Updated Oct 26, 14:19</span>
           </div>
           <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight flex flex-wrap items-center gap-2 sm:gap-3">
             <span>Barcelona (BCN)</span>
@@ -90,8 +90,8 @@
           </span>
         </div>
         <div class="mt-2 sm:mt-3">
-          <div class="text-xl sm:text-3xl font-extrabold text-emerald-600 leading-tight">€134.59</div>
-          <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-0.5">2027-01-04 (Ryanair)</div>
+          <div class="text-xl sm:text-3xl font-extrabold text-emerald-600 leading-tight">€151.00</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium truncate mt-0.5">2027-01-04 (Vueling)</div>
         </div>
       </div>
 
@@ -104,8 +104,8 @@
           </span>
         </div>
         <div class="mt-2 sm:mt-3">
-          <div class="text-xl sm:text-3xl font-extrabold text-blue-600 leading-tight">€207.46</div>
-          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Median: <strong>€208.00</strong></div>
+          <div class="text-xl sm:text-3xl font-extrabold text-blue-600 leading-tight">€206.31</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Median: <strong>€202.94</strong></div>
         </div>
       </div>
 
@@ -120,15 +120,15 @@
         <div class="mt-2 sm:mt-3 flex items-baseline justify-between gap-1">
           <div>
             <div class="text-[10px] text-slate-500 font-semibold">Jan 3</div>
-            <div class="text-sm sm:text-xl font-bold text-slate-800">€265</div>
+            <div class="text-sm sm:text-xl font-bold text-slate-800">€253</div>
           </div>
           <div class="h-6 w-px bg-slate-200"></div>
           <div>
             <div class="text-[10px] text-slate-500 font-semibold">Jan 4</div>
-            <div class="text-sm sm:text-xl font-bold text-emerald-600">€134.59</div>
+            <div class="text-sm sm:text-xl font-bold text-emerald-600">€151.00</div>
           </div>
         </div>
-        <div class="mt-1 text-[10px] sm:text-xs text-emerald-600 font-semibold truncate">Jan 4 saves €130.41</div>
+        <div class="mt-1 text-[10px] sm:text-xs text-emerald-600 font-semibold truncate">Jan 4 saves €101.99</div>
       </div>
 
       <!-- Most Affordable Airline -->
@@ -176,10 +176,60 @@
               <span class="text-sm font-extrabold tracking-tight">📅 Sunday, Jan 3, 2027</span>
               <span class="text-[11px] bg-white/15 text-blue-200 px-2 py-0.5 rounded-full font-semibold">4 flights</span>
             </div>
-            <span class="text-xs font-bold text-emerald-300">From €265.00</span>
+            <span class="text-xs font-bold text-emerald-300">From €252.99</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
+                    Ryanair
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR133</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€252.99</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">16:55</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:35</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Ryanair.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
             <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
               <!-- Top row: Airline + Rank + Price -->
               <div class="flex items-start justify-between gap-2">
@@ -188,10 +238,10 @@
                     Vueling
                   </span>
                   <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
-                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
                 </div>
                 <div class="text-right shrink-0">
-                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€265.00</div>
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€265.00</div>
                   <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
                 </div>
               </div>
@@ -238,7 +288,7 @@
                     Vueling
                   </span>
                   <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
-                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
                 </div>
                 <div class="text-right shrink-0">
                   <div class="text-xl font-extrabold text-slate-900 leading-none">€265.00</div>
@@ -275,56 +325,6 @@
                 </a>
                 <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
                   <span>Vueling.com</span>
-                  <span>↗</span>
-                </a>
-              </div>
-            </div>
-            
-            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-03" data-top3="true">
-              <!-- Top row: Airline + Rank + Price -->
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex flex-wrap items-center gap-1.5">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
-                    Ryanair
-                  </span>
-                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR133</span>
-                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
-                </div>
-                <div class="text-right shrink-0">
-                  <div class="text-xl font-extrabold text-slate-900 leading-none">€278.19</div>
-                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
-                </div>
-              </div>
-
-              <!-- Middle row: Visual Flight Timeline -->
-              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
-                <div class="text-left">
-                  <div class="text-base font-extrabold text-slate-900 leading-tight">16:55</div>
-                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
-                </div>
-                <div class="flex-1 flex flex-col items-center px-2">
-                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
-                  <div class="w-full flex items-center gap-1 my-0.5">
-                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
-                    <span class="text-xs text-blue-600">✈️</span>
-                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
-                  </div>
-                  <span class="text-[10px] text-emerald-600 font-semibold">Sun, Jan 3</span>
-                </div>
-                <div class="text-right">
-                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:35</div>
-                  <div class="text-[11px] font-bold text-slate-500">BER</div>
-                </div>
-              </div>
-
-              <!-- Bottom row: Touch-friendly Action Buttons -->
-              <div class="grid grid-cols-2 gap-2 pt-0.5">
-                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
-                  <span>Google Flights</span>
-                  <span>➔</span>
-                </a>
-                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
-                  <span>Ryanair.com</span>
                   <span>↗</span>
                 </a>
               </div>
@@ -389,60 +389,10 @@
               <span class="text-sm font-extrabold tracking-tight">📅 Monday, Jan 4, 2027</span>
               <span class="text-[11px] bg-white/15 text-blue-200 px-2 py-0.5 rounded-full font-semibold">5 flights</span>
             </div>
-            <span class="text-xs font-bold text-emerald-300">From €134.59</span>
+            <span class="text-xs font-bold text-emerald-300">From €151.00</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         
-            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
-              <!-- Top row: Airline + Rank + Price -->
-              <div class="flex items-start justify-between gap-2">
-                <div class="flex flex-wrap items-center gap-1.5">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
-                    Ryanair
-                  </span>
-                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR149</span>
-                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
-                </div>
-                <div class="text-right shrink-0">
-                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€134.59</div>
-                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
-                </div>
-              </div>
-
-              <!-- Middle row: Visual Flight Timeline -->
-              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
-                <div class="text-left">
-                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:00</div>
-                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
-                </div>
-                <div class="flex-1 flex flex-col items-center px-2">
-                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
-                  <div class="w-full flex items-center gap-1 my-0.5">
-                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
-                    <span class="text-xs text-blue-600">✈️</span>
-                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
-                  </div>
-                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
-                </div>
-                <div class="text-right">
-                  <div class="text-base font-extrabold text-slate-900 leading-tight">21:40</div>
-                  <div class="text-[11px] font-bold text-slate-500">BER</div>
-                </div>
-              </div>
-
-              <!-- Bottom row: Touch-friendly Action Buttons -->
-              <div class="grid grid-cols-2 gap-2 pt-0.5">
-                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
-                  <span>Google Flights</span>
-                  <span>➔</span>
-                </a>
-                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
-                  <span>Ryanair.com</span>
-                  <span>↗</span>
-                </a>
-              </div>
-            </div>
-            
             <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
               <!-- Top row: Airline + Rank + Price -->
               <div class="flex items-start justify-between gap-2">
@@ -451,10 +401,10 @@
                     Vueling
                   </span>
                   <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
-                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span>
                 </div>
                 <div class="text-right shrink-0">
-                  <div class="text-xl font-extrabold text-slate-900 leading-none">€151.00</div>
+                  <div class="text-xl font-extrabold text-emerald-600 leading-none">€151.00</div>
                   <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
                 </div>
               </div>
@@ -501,7 +451,7 @@
                     Vueling
                   </span>
                   <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">VY Nonstop</span>
-                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span>
                 </div>
                 <div class="text-right shrink-0">
                   <div class="text-xl font-extrabold text-slate-900 leading-none">€151.00</div>
@@ -538,6 +488,56 @@
                 </a>
                 <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
                   <span>Vueling.com</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+            
+            <div class="flight-item bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-blue-600 flex flex-col justify-between gap-3 transition" data-date="2027-01-04" data-top3="true">
+              <!-- Top row: Airline + Rank + Price -->
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border bg-blue-100 text-blue-800 border-blue-200">
+                    Ryanair
+                  </span>
+                  <span class="font-mono text-xs text-slate-600 font-bold bg-slate-100 px-2 py-0.5 rounded">FR149</span>
+                  <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-xl font-extrabold text-slate-900 leading-none">€152.90</div>
+                  <div class="text-[10px] text-slate-400 font-medium mt-0.5">One-way</div>
+                </div>
+              </div>
+
+              <!-- Middle row: Visual Flight Timeline -->
+              <div class="bg-slate-50 rounded-lg px-3 py-2.5 border border-slate-100 flex items-center justify-between gap-2">
+                <div class="text-left">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">19:00</div>
+                  <div class="text-[11px] font-bold text-slate-500">BCN</div>
+                </div>
+                <div class="flex-1 flex flex-col items-center px-2">
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">2h 40m • Direct</span>
+                  <div class="w-full flex items-center gap-1 my-0.5">
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                    <span class="text-xs text-blue-600">✈️</span>
+                    <div class="h-0.5 flex-1 bg-slate-300 rounded"></div>
+                  </div>
+                  <span class="text-[10px] text-emerald-600 font-semibold">Mon, Jan 4</span>
+                </div>
+                <div class="text-right">
+                  <div class="text-base font-extrabold text-slate-900 leading-tight">21:40</div>
+                  <div class="text-[11px] font-bold text-slate-500">BER</div>
+                </div>
+              </div>
+
+              <!-- Bottom row: Touch-friendly Action Buttons -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-900 hover:bg-slate-800 active:bg-slate-950 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition min-h-[40px] text-center">
+                  <span>Google Flights</span>
+                  <span>➔</span>
+                </a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-300 text-xs font-bold py-2.5 px-3 rounded-lg transition min-h-[40px] text-center">
+                  <span>Ryanair.com</span>
                   <span>↗</span>
                 </a>
               </div>
@@ -671,6 +671,30 @@
                 <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
               </td>
               <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
+                  Ryanair
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR133</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">16:55 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:35 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-emerald-600">€252.99</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-03</div>
+                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
                   Vueling
                 </span>
@@ -680,8 +704,8 @@
               <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">15:45 <span class="text-xs font-normal text-slate-400">BER</span></td>
               <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
               <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
-                <span class="text-emerald-600">€265.00</span>
-                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
+                <span class="text-slate-900">€265.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
               </td>
               <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
                 <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
@@ -705,35 +729,11 @@
               <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
               <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
                 <span class="text-slate-900">€265.00</span>
-                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
-              </td>
-              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
-                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
-                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
-              </td>
-            </tr>
-            
-            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-03" data-top3="true">
-              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
-                <div>2027-01-03</div>
-                <div class="text-[11px] text-slate-400 font-normal">Sun, Jan 3</div>
-              </td>
-              <td class="px-4 py-3.5 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
-                  Ryanair
-                </span>
-              </td>
-              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR133</td>
-              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">16:55 <span class="text-xs font-normal text-slate-400">BCN</span></td>
-              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:35 <span class="text-xs font-normal text-slate-400">BER</span></td>
-              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
-              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
-                <span class="text-slate-900">€278.19</span>
                 <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span></span>
               </td>
               <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
                 <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-03%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
-                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-03&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
+                <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
               </td>
             </tr>
             
@@ -767,30 +767,6 @@
                 <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
               </td>
               <td class="px-4 py-3.5 whitespace-nowrap">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
-                  Ryanair
-                </span>
-              </td>
-              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR149</td>
-              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:00 <span class="text-xs font-normal text-slate-400">BCN</span></td>
-              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">21:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
-              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
-              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
-                <span class="text-emerald-600">€134.59</span>
-                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
-              </td>
-              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
-                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
-                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
-              </td>
-            </tr>
-            
-            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="true">
-              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
-                <div>2027-01-04</div>
-                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
-              </td>
-              <td class="px-4 py-3.5 whitespace-nowrap">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-amber-100 text-amber-900 border-amber-200">
                   Vueling
                 </span>
@@ -800,8 +776,8 @@
               <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">17:25 <span class="text-xs font-normal text-slate-400">BER</span></td>
               <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
               <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
-                <span class="text-slate-900">€151.00</span>
-                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
+                <span class="text-emerald-600">€151.00</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-extrabold uppercase tracking-wide">#1 Cheapest</span></span>
               </td>
               <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
                 <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
@@ -825,11 +801,35 @@
               <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
               <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
                 <span class="text-slate-900">€151.00</span>
-                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span></span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#2 Top 3</span></span>
               </td>
               <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
                 <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
                 <a href="https://www.vueling.com/en" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Vueling ↗</a>
+              </td>
+            </tr>
+            
+            <tr class="flight-item hover:bg-slate-50/80 transition" data-date="2027-01-04" data-top3="true">
+              <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+                <div>2027-01-04</div>
+                <div class="text-[11px] text-slate-400 font-normal">Mon, Jan 4</div>
+              </td>
+              <td class="px-4 py-3.5 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-blue-100 text-blue-800 border-blue-200">
+                  Ryanair
+                </span>
+              </td>
+              <td class="px-4 py-3.5 font-mono text-xs text-slate-700 font-bold whitespace-nowrap">FR149</td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">19:00 <span class="text-xs font-normal text-slate-400">BCN</span></td>
+              <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">21:40 <span class="text-xs font-normal text-slate-400">BER</span></td>
+              <td class="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">2h 40m (Direct)</td>
+              <td class="px-4 py-3.5 font-extrabold text-slate-900 whitespace-nowrap">
+                <span class="text-slate-900">€152.90</span>
+                <span class="ml-1.5"><span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-bold">#3 Top 3</span></span>
+              </td>
+              <td class="px-4 py-3.5 text-right whitespace-nowrap space-x-1.5">
+                <a href="https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-900 hover:bg-slate-800 text-white font-semibold px-3 py-1.5 rounded-lg shadow-sm transition">Google Flights ➔</a>
+                <a href="https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false" target="_blank" rel="noopener noreferrer" class="inline-block text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg transition">Ryanair ↗</a>
               </td>
             </tr>
             
@@ -954,8 +954,8 @@
 
   <!-- Interactive Chart & Filter Script -->
   <script>
-    const statsData = {"airline_stats": {"Vueling": {"min": 140.0, "max": 286.0, "avg": 204.78, "median": 175.0, "count": 86}, "Ryanair": {"min": 134.59, "max": 285.39, "avg": 194.2, "median": 164.0, "count": 54}, "easyJet": {"min": 315.0, "max": 344.0, "avg": 330.35, "median": 344.0, "count": 17}}, "date_stats": {"2027-01-03": {"min": 265.0, "max": 344.0, "avg": 288.17, "median": 281.79, "count": 72}, "2027-01-04": {"min": 134.59, "max": 175.0, "avg": 152.54, "median": 151.0, "count": 85}}, "daily_trends": [{"search_date": "10-21 23:05", "min_price": 136.39, "avg_price": 211.86, "max_price": 286.0}, {"search_date": "10-21 23:11", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-21 23:35", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 00:34", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 10:38", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 10:44", "min_price": 136.39, "avg_price": 209.09, "max_price": 281.79}, {"search_date": "10-22 11:00", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 18:07", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 22:53", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-23 12:35", "min_price": 136.39, "avg_price": 214.42, "max_price": 344.0}, {"search_date": "10-23 17:58", "min_price": 136.39, "avg_price": 214.42, "max_price": 344.0}, {"search_date": "10-23 22:41", "min_price": 136.39, "avg_price": 257.56, "max_price": 315.0}, {"search_date": "10-24 11:52", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-24 16:55", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-24 21:52", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-25 11:13", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-25 16:05", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-25 21:58", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-26 00:21", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}], "hourly_data": [{"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 140.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 140.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}]};
-    const flightData = {"2027-01-03": [{"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:05", "arrival_time": "15:45", "price": 265.0, "price_str": "EUR 265.00", "date": "2027-01-03"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 265.0, "price_str": "EUR 265.00", "date": "2027-01-03"}, {"airline": "Ryanair", "flight_number": "FR133", "departure_time": "16:55", "arrival_time": "19:35", "price": 278.19, "price_str": "EUR 278.19", "date": "2027-01-03"}, {"airline": "easyJet", "flight_number": "U2 Nonstop", "departure_time": "17:50", "arrival_time": "20:40", "price": 315.0, "price_str": "EUR 315.00", "date": "2027-01-03"}], "2027-01-04": [{"airline": "Ryanair", "flight_number": "FR149", "departure_time": "19:00", "arrival_time": "21:40", "price": 134.59, "price_str": "EUR 134.59", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "14:50", "arrival_time": "17:25", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Ryanair", "flight_number": "FR Nonstop", "departure_time": "11:50", "arrival_time": "14:30", "price": 166.0, "price_str": "EUR 166.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:15", "arrival_time": "15:55", "price": 175.0, "price_str": "EUR 175.00", "date": "2027-01-04"}]};
+    const statsData = {"airline_stats": {"Vueling": {"min": 140.0, "max": 286.0, "avg": 204.59, "median": 175.0, "count": 91}, "Ryanair": {"min": 134.59, "max": 285.39, "avg": 194.02, "median": 164.0, "count": 57}, "easyJet": {"min": 315.0, "max": 344.0, "avg": 329.5, "median": 329.5, "count": 18}}, "date_stats": {"2027-01-03": {"min": 252.99, "max": 344.0, "avg": 287.45, "median": 281.79, "count": 76}, "2027-01-04": {"min": 134.59, "max": 175.0, "avg": 152.91, "median": 151.0, "count": 90}}, "daily_trends": [{"search_date": "10-21 23:05", "min_price": 136.39, "avg_price": 211.86, "max_price": 286.0}, {"search_date": "10-21 23:11", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-21 23:35", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 00:34", "min_price": 136.39, "avg_price": 214.46, "max_price": 344.0}, {"search_date": "10-22 10:38", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 10:44", "min_price": 136.39, "avg_price": 209.09, "max_price": 281.79}, {"search_date": "10-22 11:00", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 18:07", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-22 22:53", "min_price": 136.39, "avg_price": 217.13, "max_price": 344.0}, {"search_date": "10-23 12:35", "min_price": 136.39, "avg_price": 214.42, "max_price": 344.0}, {"search_date": "10-23 17:58", "min_price": 136.39, "avg_price": 214.42, "max_price": 344.0}, {"search_date": "10-23 22:41", "min_price": 136.39, "avg_price": 257.56, "max_price": 315.0}, {"search_date": "10-24 11:52", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-24 16:55", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-24 21:52", "min_price": 134.59, "avg_price": 209.89, "max_price": 315.0}, {"search_date": "10-25 11:13", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-25 16:05", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-25 21:58", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-26 00:21", "min_price": 134.59, "avg_price": 211.2, "max_price": 315.0}, {"search_date": "10-26 14:19", "min_price": 151.0, "avg_price": 210.43, "max_price": 315.0}], "hourly_data": [{"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 281.79, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 164.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 140.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 344.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 140.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 286.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 136.39, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 285.39, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 147.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "16:55", "hour": 16.92, "price": 278.19, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "19:00", "hour": 19.0, "price": 134.59, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "16:55", "hour": 16.92, "price": 252.99, "airline": "Ryanair", "departure_date": "2027-01-03"}, {"time_str": "13:05", "hour": 13.08, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "18:00", "hour": 18.0, "price": 265.0, "airline": "Vueling", "departure_date": "2027-01-03"}, {"time_str": "17:50", "hour": 17.83, "price": 315.0, "airline": "easyJet", "departure_date": "2027-01-03"}, {"time_str": "14:50", "hour": 14.83, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "18:00", "hour": 18.0, "price": 151.0, "airline": "Vueling", "departure_date": "2027-01-04"}, {"time_str": "19:00", "hour": 19.0, "price": 152.9, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "11:50", "hour": 11.83, "price": 166.0, "airline": "Ryanair", "departure_date": "2027-01-04"}, {"time_str": "13:15", "hour": 13.25, "price": 175.0, "airline": "Vueling", "departure_date": "2027-01-04"}]};
+    const flightData = {"2027-01-03": [{"airline": "Ryanair", "flight_number": "FR133", "departure_time": "16:55", "arrival_time": "19:35", "price": 252.99, "price_str": "EUR 252.99", "date": "2027-01-03"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:05", "arrival_time": "15:45", "price": 265.0, "price_str": "EUR 265.00", "date": "2027-01-03"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 265.0, "price_str": "EUR 265.00", "date": "2027-01-03"}, {"airline": "easyJet", "flight_number": "U2 Nonstop", "departure_time": "17:50", "arrival_time": "20:40", "price": 315.0, "price_str": "EUR 315.00", "date": "2027-01-03"}], "2027-01-04": [{"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "14:50", "arrival_time": "17:25", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "18:00", "arrival_time": "20:40", "price": 151.0, "price_str": "EUR 151.00", "date": "2027-01-04"}, {"airline": "Ryanair", "flight_number": "FR149", "departure_time": "19:00", "arrival_time": "21:40", "price": 152.9, "price_str": "EUR 152.90", "date": "2027-01-04"}, {"airline": "Ryanair", "flight_number": "FR Nonstop", "departure_time": "11:50", "arrival_time": "14:30", "price": 166.0, "price_str": "EUR 166.00", "date": "2027-01-04"}, {"airline": "Vueling", "flight_number": "VY Nonstop", "departure_time": "13:15", "arrival_time": "15:55", "price": 175.0, "price_str": "EUR 175.00", "date": "2027-01-04"}]};
     const isMobile = window.innerWidth < 640;
 
     const commonLegend = {

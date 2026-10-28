@@ -1,0 +1,48 @@
+name: Morning Daily Flight Summary (Fail-Safe Cloud Guarantee)
+
+on:
+  schedule:
+    # Backup fail-safe triggers at 07:48 CET (06:48 UTC) and 08:15 CET (07:15 UTC)
+    # Ensures the morning summary email is always delivered before or around 8:00 AM
+    - cron: "48 6,7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  morning-summary-guarantee:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/Madrid
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+      DASHBOARD_URL: "https://guillermohern023.github.io/bcn-ber-flight-tracker/dashboard.html"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ryanair-py beautifulsoup4
+
+      - name: Execute Morning Flight Digest Check
+        run: |
+          python flight_tracker.py
+
+      - name: Commit & Push if Updated
+        run: |
+          git config user.name "Antigravity Flight Tracker Bot"
+          git config user.email "guillejhl@gmail.com"
+          git add flight_history.db flight_data.json dashboard.html index.html latest_flight_report.txt
+          git diff --staged --quiet || (git commit -m "chore(morning-guarantee): flight price & summary update [skip ci]" && git pull --rebase origin main && git push origin main)

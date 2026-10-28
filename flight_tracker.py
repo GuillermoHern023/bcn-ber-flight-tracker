@@ -1483,7 +1483,7 @@ def main():
     conn.close()
 
     should_send_summary = (
-        (datetime.now().hour >= 6 and not already_sent_today)
+        (datetime.now().hour >= 7 and not already_sent_today)
         or ("--force-summary" in sys.argv)
         or is_final_day
     )

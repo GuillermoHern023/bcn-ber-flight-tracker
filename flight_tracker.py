@@ -34,7 +34,10 @@ DATA_JSON_PATH = BASE_DIR / "flight_data.json"
 REPORT_TXT_PATH = BASE_DIR / "latest_flight_report.txt"
 REMOTE_DASHBOARD_URL = os.environ.get("DASHBOARD_URL", "https://guillermohern023.github.io/bcn-ber-flight-tracker/dashboard.html")
 LOCAL_DASHBOARD_URL = "http://localhost:8080/dashboard.html"
-ARTIFACT_DASHBOARD_PATH = Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html")
+ARTIFACT_DASHBOARD_PATHS = [
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\3737ac7f-280e-44ec-92e7-3e7cdbd950e5\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html")
+]
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -911,9 +914,18 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
     with open(INDEX_HTML_PATH, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"[INFO] Mobile-friendly Interactive Dashboard saved to: {DASHBOARD_PATH}")
-    if ARTIFACT_DASHBOARD_PATH.parent.exists():
-        with open(ARTIFACT_DASHBOARD_PATH, "w", encoding="utf-8") as f:
-            f.write(html)
+    for art_path in ARTIFACT_DASHBOARD_PATHS:
+        if art_path.parent.exists():
+            with open(art_path, "w", encoding="utf-8") as f:
+                f.write(html)
+            meta_path = art_path.with_name("flight_dashboard.html.metadata.json")
+            meta = {
+                "summary": "Interactive Flight Price Analytics Dashboard for Barcelona (BCN) to Berlin (BER) one-way flights on January 3 & 4, 2027. Displays KPI cards, airline price distribution charts (lowest, median, average, highest), 14-day price trends, time-of-day fare matrix, and filterable flight board.",
+                "updatedAt": datetime.now().isoformat() + "Z",
+                "userFacing": True
+            }
+            with open(meta_path, "w", encoding="utf-8") as f:
+                json.dump(meta, f, indent=2)
 
     # Also save raw JSON for external APIs / tools
     with open(DATA_JSON_PATH, "w", encoding="utf-8") as f:
@@ -1470,6 +1482,12 @@ def main():
     # Generate mobile-friendly interactive web dashboard with all flight options
     generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date)
 
+    # Format latest flight report snapshot
+    subject, plain_text, html_email = format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights_by_date)
+    recipients_str = ", ".join(RECIPIENT_EMAILS)
+    with open(REPORT_TXT_PATH, "w", encoding="utf-8") as f:
+        f.write(f"Subject: {subject}\nTo: {recipients_str}\n\n{plain_text}")
+
     # 1. ALWAYS check for urgent price drop (< €70) across all 3 daily runs!
     check_and_send_urgent_alerts(all_flights_by_date)
 
@@ -1490,7 +1508,6 @@ def main():
 
     if should_send_summary:
         print("\n[INFO] Daily Summary execution: Formatting and sending today's summary email...")
-        subject, plain_text, html_email = format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights_by_date)
         if send_and_save_email(subject, plain_text, html_email):
             conn = sqlite3.connect(DB_PATH)
             cur = conn.cursor()
@@ -1499,7 +1516,10 @@ def main():
             conn.commit()
             conn.close()
     else:
-        print(f"\n[INFO] Scheduled check (Hour {datetime.now().hour}): Analytics & database updated. Today's summary email was already delivered.")
+        if already_sent_today:
+            print(f"\n[INFO] Scheduled check (Hour {datetime.now().hour}): Analytics & database updated. Today's summary email was already delivered.")
+        else:
+            print(f"\n[INFO] Scheduled check (Hour {datetime.now().hour}): Analytics & database updated. Morning summary email will be delivered in the morning (>= 07:00 CET).")
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,10 @@ on:
         required: false
         default: "false"
 
+concurrency:
+  group: flight-tracker-state
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -20,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: Europe/Madrid
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
       SMTP_HOST: ${{ secrets.SMTP_HOST }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -54,4 +59,11 @@ jobs:
           git config user.name "Antigravity Flight Tracker Bot"
           git config user.email "guillejhl@gmail.com"
           git add flight_history.db flight_data.json dashboard.html index.html latest_flight_report.txt
-          git diff --staged --quiet || (git commit -m "chore(tracker): automated flight price & dashboard update [skip ci]" && git pull --rebase origin main && git push origin main)
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(tracker): automated flight price & dashboard update [skip ci]"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push origin main && break
+              echo "Push attempt $attempt failed; waiting 4s before retry..."
+              sleep 4
+            done
+          fi

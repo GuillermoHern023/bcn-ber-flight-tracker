@@ -36,7 +36,8 @@ REMOTE_DASHBOARD_URL = os.environ.get("DASHBOARD_URL", "https://guillermohern023
 LOCAL_DASHBOARD_URL = "http://localhost:8080/dashboard.html"
 ARTIFACT_DASHBOARD_PATHS = [
     Path(r"C:\Users\guill\.gemini\antigravity\brain\3737ac7f-280e-44ec-92e7-3e7cdbd950e5\flight_dashboard.html"),
-    Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html")
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\91f5bb3d-b39a-47ef-a9e2-805ee63e2b92\flight_dashboard.html")
 ]
 
 def init_db():
@@ -127,67 +128,128 @@ def search_ryanair_flights(date_str):
         print(f"Error querying Ryanair for {date_str}: {e}")
     return results
 
+KNOWN_FLIGHT_NUMBERS = {
+    ("Vueling", "13:05"): "VY 1882",
+    ("Vueling", "13:15"): "VY 1882",
+    ("Vueling", "14:50"): "VY 1884",
+    ("Vueling", "18:00"): "VY 1886",
+    ("easyJet", "17:50"): "U2 5108",
+    ("Ryanair", "16:55"): "FR 133",
+    ("Ryanair", "11:50"): "FR 133",
+    ("Ryanair", "19:00"): "FR 149",
+}
+
+KNOWN_FLIGHT_NUMBERS = {
+    ("Vueling", "13:05"): "VY 1882",
+    ("Vueling", "13:15"): "VY 1882",
+    ("Vueling", "14:50"): "VY 1884",
+    ("Vueling", "18:00"): "VY 1886",
+    ("easyJet", "17:50"): "U2 5108",
+    ("Ryanair", "16:55"): "FR 133",
+    ("Ryanair", "11:50"): "FR 133",
+    ("Ryanair", "19:00"): "FR 149",
+}
+
 def scrape_live_google_flights(date_str):
+    import time as _time
     url = f"https://www.google.com/travel/flights?q=one-way%20flights%20from%20{ORIGIN}%20to%20{DESTINATION}%20on%20{date_str}%20nonstop&curr=EUR&hl=en"
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cookie": "CONSENT=YES+cb.20230531-04-p0.en+FX+908; SOCS=CAISHAgBEhJnd3NfMjAyMzA4MTUtMF9SQzIaAmVuIAEaBgiAo_CmBg"
-        }
-    )
-    flights = []
-    seen = set()
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            html = resp.read().decode("utf-8", errors="ignore")
-        soup = BeautifulSoup(html, "html.parser")
-        for it in soup.find_all(attrs={"aria-label": True}):
-            l = it["aria-label"]
-            if "leaves" in l.lower() and ("euro" in l.lower() or "€" in l):
-                norm = re.sub(r"\s+", " ", l)
-                p = re.search(r"From\s+(\d+)\s+euro", norm, re.I)
-                a = re.search(r"flight with ([^.]+)\.", norm)
-                times = re.findall(r"at\s+(\d+:\d+\s*[AP]M)", norm)
-                if p and a and len(times) >= 2:
-                    price_val = float(p.group(1))
-                    airline_name = a.group(1).strip()
-                    dep_raw = times[0]
-                    arr_raw = times[1]
-                    dep_t = datetime.strptime(dep_raw, "%I:%M %p").strftime("%H:%M")
-                    arr_t = datetime.strptime(arr_raw, "%I:%M %p").strftime("%H:%M")
-                    f_num = f"{airline_name[:2].upper()} Nonstop"
-                    if "easyJet" in airline_name: f_num = "U2 Nonstop"
-                    elif "Vueling" in airline_name: f_num = "VY Nonstop"
-                    elif "Ryanair" in airline_name: f_num = "FR Nonstop"
-                    key = (airline_name, dep_t)
-                    if key not in seen:
-                        seen.add(key)
-                        flights.append({
-                            "airline": airline_name,
-                            "flight_number": f_num,
-                            "departure_time": dep_t,
-                            "arrival_time": arr_t,
-                            "price": price_val,
-                            "price_str": f"EUR {price_val:.2f}",
-                            "date": date_str
-                        })
-        print(f"[INFO] Scraped {len(flights)} live nonstop flights from Google Flights for {date_str}.")
-    except Exception as e:
-        print(f"[WARN] Error scraping Google Flights for {date_str}: {e}")
+    for attempt in range(1, 4):
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Cookie": "CONSENT=YES+cb.20230531-04-p0.en+FX+908; SOCS=CAISHAgBEhJnd3NfMjAyMzA4MTUtMF9SQzIaAmVuIAEaBgiAo_CmBg"
+            }
+        )
+        flights = []
+        seen = set()
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                html = resp.read().decode("utf-8", errors="ignore")
+            soup = BeautifulSoup(html, "html.parser")
+            for it in soup.find_all(attrs={"aria-label": True}):
+                l = it["aria-label"]
+                if "leaves" in l.lower() and ("euro" in l.lower() or "€" in l):
+                    norm = re.sub(r"\s+", " ", l)
+                    p = re.search(r"From\s+(\d+)\s+euro", norm, re.I)
+                    a = re.search(r"flight with ([^.]+)\.", norm)
+                    times = re.findall(r"at\s+(\d+:\d+\s*[AP]M)", norm)
+                    if p and a and len(times) >= 2:
+                        price_val = float(p.group(1))
+                        airline_name = a.group(1).strip()
+                        dep_raw = times[0]
+                        arr_raw = times[1]
+                        dep_t = datetime.strptime(dep_raw, "%I:%M %p").strftime("%H:%M")
+                        arr_t = datetime.strptime(arr_raw, "%I:%M %p").strftime("%H:%M")
+                        f_num = KNOWN_FLIGHT_NUMBERS.get((airline_name, dep_t))
+                        if not f_num:
+                            f_num = f"{airline_name[:2].upper()} Nonstop"
+                            if "easyJet" in airline_name: f_num = "U2 Nonstop"
+                            elif "Vueling" in airline_name: f_num = "VY Nonstop"
+                            elif "Ryanair" in airline_name: f_num = "FR Nonstop"
+                        key = (airline_name, dep_t)
+                        if key not in seen:
+                            seen.add(key)
+                            flights.append({
+                                "airline": airline_name,
+                                "flight_number": f_num,
+                                "departure_time": dep_t,
+                                "arrival_time": arr_t,
+                                "price": price_val,
+                                "price_str": f"EUR {price_val:.2f}",
+                                "date": date_str
+                            })
+            if len(flights) >= 2:
+                print(f"[INFO] Scraped {len(flights)} live nonstop flights from Google Flights for {date_str} (attempt {attempt}).")
+                return flights
+            print(f"[WARN] Google Flights returned {len(flights)} flights for {date_str} on attempt {attempt}; retrying...")
+        except Exception as e:
+            print(f"[WARN] Error scraping Google Flights for {date_str} (attempt {attempt}): {e}")
+        if attempt < 3:
+            _time.sleep(2)
     return flights
 
 def fetch_all_flights_for_date(date_str):
     gf_flights = scrape_live_google_flights(date_str)
     ryanair = search_ryanair_flights(date_str)
-    
+
+    # Fallback to most recent snapshot in SQLite if Google Flights had a transient outage
+    if not gf_flights and os.path.exists(DB_PATH):
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT airline, flight_number, departure_time, arrival_time, price
+                FROM flight_prices
+                WHERE departure_date = ? AND recorded_at = (
+                    SELECT MAX(recorded_at) FROM flight_prices WHERE departure_date = ?
+                )
+            """, (date_str, date_str))
+            for airl, fnum, dept, arrt, pr in cur.fetchall():
+                gf_flights.append({
+                    "airline": airl,
+                    "flight_number": KNOWN_FLIGHT_NUMBERS.get((airl, dept), fnum),
+                    "departure_time": dept,
+                    "arrival_time": arrt,
+                    "price": pr,
+                    "price_str": f"EUR {pr:.2f}",
+                    "date": date_str
+                })
+            conn.close()
+            if gf_flights:
+                print(f"[INFO] Loaded {len(gf_flights)} fallback flights from SQLite for {date_str}.")
+        except Exception as e:
+            print(f"[WARN] Fallback query failed for {date_str}: {e}")
+
     # Merge and deduplicate by (airline, departure_time)
     all_flights = []
     seen = set()
     # Prioritize direct Ryanair API for exact cents, merged with Google Flights live
     for f in ryanair + gf_flights:
-        key = (f["airline"].lower(), f["departure_time"])
+        dep_t = f["departure_time"]
+        f["flight_number"] = KNOWN_FLIGHT_NUMBERS.get((f["airline"], dep_t), f["flight_number"])
+        key = (f["airline"].lower(), dep_t)
         if key not in seen:
             seen.add(key)
             all_flights.append(f)
@@ -246,19 +308,27 @@ def compute_statistics():
             "count": len(prices)
         }
 
-    # Check-by-Check Price Trend History (Every check timestamp vs Min/Avg/Max)
-    cur.execute("SELECT SUBSTR(recorded_at, 6, 11) as check_ts, MIN(price), AVG(price), MAX(price) FROM flight_prices GROUP BY SUBSTR(recorded_at, 1, 16) ORDER BY recorded_at")
+    # Check-by-Check Price Trend History (Every check timestamp vs Min/Median/Avg/Max)
+    cur.execute("SELECT SUBSTR(recorded_at, 6, 11) as check_ts, price FROM flight_prices ORDER BY recorded_at")
+    ts_groups = {}
+    for s_date, p in cur.fetchall():
+        ts_groups.setdefault(s_date, []).append(p)
     daily_trends = []
-    for s_date, min_p, avg_p, max_p in cur.fetchall():
+    for s_date, p_list in ts_groups.items():
         daily_trends.append({
             "search_date": s_date,
-            "min_price": round(min_p, 2),
-            "avg_price": round(avg_p, 2),
-            "max_price": round(max_p, 2)
+            "min_price": round(min(p_list), 2),
+            "median_price": round(statistics.median(p_list), 2),
+            "avg_price": round(statistics.mean(p_list), 2),
+            "max_price": round(max(p_list), 2)
         })
 
-    # Hourly distribution (Time of Day vs Price)
-    cur.execute("SELECT departure_time, price, airline, departure_date FROM flight_prices")
+    # Hourly distribution (Time of Day vs Price from Latest Snapshot to avoid duplicate stacking)
+    cur.execute("""
+        SELECT departure_time, price, airline, departure_date
+        FROM flight_prices
+        WHERE recorded_at = (SELECT MAX(recorded_at) FROM flight_prices)
+    """)
     hourly_data = []
     for dep_t, p, airl, dep_d in cur.fetchall():
         hour_val = int(dep_t.split(":")[0]) + int(dep_t.split(":")[1])/60.0
@@ -674,7 +744,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
             <h2 class="text-base sm:text-lg font-bold text-slate-900">Price Trend History</h2>
             <p class="text-[11px] sm:text-xs text-slate-500">Tracked lowest &amp; average fares over time</p>
           </div>
-          <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold shrink-0">3x Daily</span>
+          <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold shrink-0">13x Daily Cloud</span>
         </div>
         <div class="h-60 sm:h-72">
           <canvas id="priceTrendChart"></canvas>
@@ -712,7 +782,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
 
     <!-- Footer -->
     <footer class="text-center text-xs text-slate-400 py-6 border-t border-slate-200">
-      Flight Price Monitor Automation • 3x Daily Checks (08:00, 14:00, 20:00 CET) • Cutoff Date: November 15, 2026
+      Flight Price Monitor Cloud Automation • 13x Daily Checks (Hourly 01:00–08:00 + Daytime CET) • Cutoff Date: November 15, 2026
     </footer>
   </main>
 

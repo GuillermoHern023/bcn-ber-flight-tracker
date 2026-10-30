@@ -2,10 +2,14 @@ name: Morning Daily Flight Summary (Fail-Safe Cloud Guarantee)
 
 on:
   schedule:
-    # Backup fail-safe triggers at 07:48 CET (06:48 UTC) and 08:15 CET (07:15 UTC)
+    # Backup fail-safe triggers at 07:48 CET (06:48 UTC) and 08:48 CET (07:48 UTC)
     # Ensures the morning summary email is always delivered before or around 8:00 AM
     - cron: "48 6,7 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: flight-tracker-state
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -15,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: Europe/Madrid
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
       SMTP_HOST: ${{ secrets.SMTP_HOST }}
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -45,4 +50,11 @@ jobs:
           git config user.name "Antigravity Flight Tracker Bot"
           git config user.email "guillejhl@gmail.com"
           git add flight_history.db flight_data.json dashboard.html index.html latest_flight_report.txt
-          git diff --staged --quiet || (git commit -m "chore(morning-guarantee): flight price & summary update [skip ci]" && git pull --rebase origin main && git push origin main)
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(morning-guarantee): flight price & summary update [skip ci]"
+            for attempt in 1 2 3; do
+              git pull --rebase origin main && git push origin main && break
+              echo "Push attempt $attempt failed; waiting 4s before retry..."
+              sleep 4
+            done
+          fi

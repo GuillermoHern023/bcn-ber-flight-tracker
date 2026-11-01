@@ -35,6 +35,7 @@ REPORT_TXT_PATH = BASE_DIR / "latest_flight_report.txt"
 REMOTE_DASHBOARD_URL = os.environ.get("DASHBOARD_URL", "https://guillermohern023.github.io/bcn-ber-flight-tracker/dashboard.html")
 LOCAL_DASHBOARD_URL = "http://localhost:8080/dashboard.html"
 ARTIFACT_DASHBOARD_PATHS = [
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\36f3a600-fcb1-4102-b46b-9764bcddb76b\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\3737ac7f-280e-44ec-92e7-3e7cdbd950e5\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\91f5bb3d-b39a-47ef-a9e2-805ee63e2b92\flight_dashboard.html")

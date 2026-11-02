@@ -43,7 +43,8 @@ ARTIFACT_DASHBOARD_PATHS = [
     Path(r"C:\Users\guill\.gemini\antigravity\brain\c24e7ab2-5e57-4fb7-a741-1bfa4c7f2fdb\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\91f5bb3d-b39a-47ef-a9e2-805ee63e2b92\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\7d8fa7d2-3dea-46aa-8ebf-1263bd8742df\flight_dashboard.html"),
-    Path(r"C:\Users\guill\.gemini\antigravity\brain\24aa681c-fe73-4a40-a32f-4b507add6e07\flight_dashboard.html")
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\24aa681c-fe73-4a40-a32f-4b507add6e07\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\801c60aa-1dd3-4177-94b7-5ac8da22050f\flight_dashboard.html")
 ]
 
 def init_db():

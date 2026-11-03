@@ -44,7 +44,8 @@ ARTIFACT_DASHBOARD_PATHS = [
     Path(r"C:\Users\guill\.gemini\antigravity\brain\91f5bb3d-b39a-47ef-a9e2-805ee63e2b92\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\7d8fa7d2-3dea-46aa-8ebf-1263bd8742df\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\24aa681c-fe73-4a40-a32f-4b507add6e07\flight_dashboard.html"),
-    Path(r"C:\Users\guill\.gemini\antigravity\brain\801c60aa-1dd3-4177-94b7-5ac8da22050f\flight_dashboard.html")
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\801c60aa-1dd3-4177-94b7-5ac8da22050f\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\a15c87fc-920c-43ea-82a4-1df66ab6ecb9\flight_dashboard.html")
 ]
 
 def init_db():
@@ -115,9 +116,7 @@ def search_ryanair_flights(date_str):
             dep_dt = datetime.fromisoformat(dep_iso)
             arr_dt = datetime.fromisoformat(arr_iso)
 
-            # Filter flights departing before 10:00 AM local time
-            if dep_dt.time() < time(10, 0):
-                continue
+            # Include all flights regardless of departure time
 
             flight_num = outbound.get("flightNumber", "FR 133")
             price_val = outbound.get("price", {}).get("value", 0.0)
@@ -136,6 +135,8 @@ def search_ryanair_flights(date_str):
     return results
 
 KNOWN_FLIGHT_NUMBERS = {
+    ("Vueling", "07:00"): "VY 1880",
+    ("easyJet", "07:20"): "U2 5102",
     ("Vueling", "13:05"): "VY 1882",
     ("Vueling", "13:15"): "VY 1882",
     ("Vueling", "14:50"): "VY 1884",
@@ -250,10 +251,9 @@ def fetch_all_flights_for_date(date_str):
             seen.add(key)
             all_flights.append(f)
 
-    # Filter out flights departing before 10:00 AM local time
-    filtered = [f for f in all_flights if datetime.strptime(f["departure_time"], "%H:%M").time() >= time(10, 0)]
-    filtered.sort(key=lambda x: x["price"])
-    return filtered
+    # Include all direct non-stop flights regardless of departure time
+    all_flights.sort(key=lambda x: x["price"])
+    return all_flights
 
 def record_flights_to_db(all_flights_by_date):
     today_str = date.today().isoformat()
@@ -574,7 +574,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
             <span class="text-blue-400">➔</span>
             <span>Berlin (BER)</span>
           </h1>
-          <p class="text-slate-300 text-xs sm:text-sm mt-1">One-Way Direct Flights • Jan 3 &amp; 4, 2027 (Departures &ge; 10:00 AM)</p>
+          <p class="text-slate-300 text-xs sm:text-sm mt-1">All One-Way Direct Flights • Jan 3 &amp; 4, 2027 (All Departure Times)</p>
         </div>
 
         <div class="flex items-center justify-between sm:justify-start gap-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2.5">
@@ -673,7 +673,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
           <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">All Possible Direct Flights by Day ({total_options_count} Options)</h2>
-          <p class="text-xs text-slate-500">Every available nonstop flight departing at or after 10:00 AM local time</p>
+          <p class="text-xs text-slate-500">Every available nonstop flight across all departure times</p>
         </div>
 
         <!-- Touch-Friendly Filter Controls -->
@@ -768,7 +768,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
             <h2 class="text-base sm:text-lg font-bold text-slate-900">Departure Time vs Fare Matrix</h2>
             <p class="text-[11px] sm:text-xs text-slate-500">Flight prices plotted against local departure hour</p>
           </div>
-          <span class="text-[11px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md font-semibold shrink-0">10:00–21:00</span>
+          <span class="text-[11px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md font-semibold shrink-0">06:00–23:00</span>
         </div>
         <div class="h-60 sm:h-72">
           <canvas id="timeOfDayChart"></canvas>
@@ -906,7 +906,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
         responsive: true,
         maintainAspectRatio: false,
         scales: {{
-          x: {{ min: 10, max: 21, ticks: {{ font: {{ size: isMobile ? 10 : 12 }}, callback: v => v + ':00' }}, title: {{ display: !isMobile, text: 'Departure Hour (24h)' }} }},
+          x: {{ min: 6, max: 22, ticks: {{ font: {{ size: isMobile ? 10 : 12 }}, callback: v => v + ':00' }}, title: {{ display: !isMobile, text: 'Departure Hour (24h)' }} }},
           y: {{ ticks: {{ font: {{ size: isMobile ? 10 : 12 }} }}, title: {{ display: !isMobile, text: 'Price (€)' }} }}
         }},
         plugins: {{
@@ -1126,7 +1126,7 @@ def format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights
     text_lines = [
         "DAILY FLIGHT SEARCH SUMMARY (ALL POSSIBLE NONSTOP OPTIONS)",
         "Route: Barcelona (BCN) -> Berlin Brandenburg (BER)",
-        "Departure Filter: Excluded flights departing before 10:00 AM local time",
+        "Departure Filter: All direct non-stop flights included (no time restrictions)",
         f"Live Mobile-Friendly Web Dashboard: {REMOTE_DASHBOARD_URL}",
         "=" * 65,
     ]
@@ -1203,7 +1203,7 @@ def format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights
                 ✈️ Daily Price Alert • All Options Included
               </div>
               <h1 style="margin: 0 0 6px 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #ffffff;">Barcelona (BCN) ➔ Berlin (BER)</h1>
-              <p style="margin: 0 0 16px 0; color: #93c5fd; font-size: 12px;">Jan 3 &amp; 4, 2027 • Departures &ge; 10:00 AM • Direct Non-stop</p>
+              <p style="margin: 0 0 16px 0; color: #93c5fd; font-size: 12px;">Jan 3 &amp; 4, 2027 • All Departure Times Included • Direct Non-stop</p>
               
               <!-- Prominent Header Action Buttons -->
               <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">

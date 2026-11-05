@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 328.0,
-        "avg": 208.81,
+        "avg": 207.93,
         "median": 175.0,
-        "count": 406
+        "count": 413
       },
       "Ryanair": {
-        "min": 134.59,
+        "min": 122.99,
         "max": 300.81,
-        "avg": 200.78,
+        "avg": 200.65,
         "median": 170.89,
-        "count": 228
+        "count": 231
       },
       "easyJet": {
         "min": 153.0,
         "max": 344.0,
-        "avg": 248.45,
+        "avg": 247.7,
         "median": 244.0,
-        "count": 89
+        "count": 91
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 344.0,
-        "avg": 272.76,
+        "avg": 272.1,
         "median": 278.19,
-        "count": 317
+        "count": 322
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 200.0,
-        "avg": 163.06,
+        "avg": 162.59,
         "median": 163.0,
-        "count": 406
+        "count": 413
       }
     },
     "daily_trends": [
@@ -550,6 +550,13 @@
         "median_price": 145.5,
         "avg_price": 176.15,
         "max_price": 328.0
+      },
+      {
+        "search_date": "11-05 15:58",
+        "min_price": 106.0,
+        "median_price": 145.5,
+        "avg_price": 175.15,
+        "max_price": 328.0
       }
     ],
     "hourly_data": [
@@ -605,7 +612,7 @@
       {
         "time_str": "11:50",
         "hour": 11.83,
-        "price": 134.99,
+        "price": 122.99,
         "airline": "Ryanair",
         "departure_date": "2027-01-04"
       },
@@ -693,8 +700,8 @@
         "flight_number": "FR 133",
         "departure_time": "11:50",
         "arrival_time": "14:30",
-        "price": 134.99,
-        "price_str": "EUR 134.99",
+        "price": 122.99,
+        "price_str": "EUR 122.99",
         "date": "2027-01-04"
       }
     ]
@@ -771,8 +778,8 @@
         "flight_number": "FR 133",
         "departure_time": "11:50",
         "arrival_time": "14:30",
-        "price": 134.99,
-        "price_str": "EUR 134.99",
+        "price": 122.99,
+        "price_str": "EUR 122.99",
         "date": "2027-01-04"
       },
       {

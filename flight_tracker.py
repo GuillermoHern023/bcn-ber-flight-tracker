@@ -24,7 +24,7 @@ DESTINATION = "BER"
 DATES = ["2027-01-03", "2027-01-04"]
 RECIPIENT_EMAILS = ["schuetzenc@gmail.com", "guillejhl@gmail.com"]
 FINAL_DEADLINE = date(2026, 11, 15)
-URGENT_PRICE_THRESHOLD = 70.0  # Alert immediately if a direct flight drops below €70
+URGENT_PRICE_THRESHOLD = 86.0  # Alert immediately if a direct flight drops below €86
 
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "flight_history.db"
@@ -1366,7 +1366,7 @@ def send_and_save_email(subject, plain_text, html_email):
         return False
 
 def format_urgent_buy_email(deal, all_flights_by_date=None):
-    subject = f"🚨 [URGENT DEAL < €70] Book Immediately: {deal['airline']} to Berlin for {deal['price_str']}!"
+    subject = f"🚨 [URGENT DEAL < €86] Book Immediately: {deal['airline']} to Berlin for {deal['price_str']}!"
     airline_url, gflights_url = get_booking_urls(deal['airline'], deal['date'], deal['flight_number'])
 
     same_day_flights = (all_flights_by_date or {}).get(deal['date'], [deal])
@@ -1376,7 +1376,7 @@ def format_urgent_buy_email(deal, all_flights_by_date=None):
         other_lines.append(f"  {idx}. {f['airline']} {f['flight_number']} | {f['departure_time']} BCN -> {f['arrival_time']} BER | {f['price_str']} ({g_url})")
     other_options_txt = "\n".join(other_lines)
 
-    plain_text = f"""*** URGENT PRICE ALERT: FLIGHT UNDER €70 DETECTED! ***
+    plain_text = f"""*** URGENT PRICE ALERT: FLIGHT UNDER €86 DETECTED! ***
 Route: Barcelona (BCN) -> Berlin Brandenburg (BER) [Direct Non-Stop]
 Departure Date: {deal['date']}
 Airline: {deal['airline']} ({deal['flight_number']})
@@ -1415,7 +1415,7 @@ ALL POSSIBLE FLIGHT OPTIONS FOR {deal['date']}:
           <tr>
             <td style="background-color: #b91c1c; padding: 24px 18px; color: #ffffff; text-align: center;">
               <div style="display: inline-block; background-color: #ef4444; color: #ffffff; border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;">
-                ⚡ URGENT PRICE DROP ALERT (&lt; €70)
+                ⚡ URGENT PRICE DROP ALERT (&lt; €86)
               </div>
               <h1 style="margin: 0 0 6px 0; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #ffffff;">Book Now: {deal['price_str']} Direct Flight!</h1>
               <p style="margin: 0; color: #fecaca; font-size: 13px;">Barcelona (BCN) ➔ Berlin (BER) • {deal['date']}</p>
@@ -1477,7 +1477,7 @@ ALL POSSIBLE FLIGHT OPTIONS FOR {deal['date']}:
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
                 <tr>
                   <td style="padding: 12px; font-size: 12px; color: #64748b; line-height: 1.5;">
-                    <strong>Why this alert?</strong> Your automated flight monitor notifies you immediately whenever a direct flight drops below €70.00, while also listing all other options for comparison.
+                    <strong>Why this alert?</strong> Your automated flight monitor notifies you immediately whenever a direct flight drops below €86.00, while also listing all other options for comparison.
                   </td>
                 </tr>
               </table>
@@ -1556,7 +1556,7 @@ def main():
     with open(REPORT_TXT_PATH, "w", encoding="utf-8") as f:
         f.write(f"Subject: {subject}\nTo: {recipients_str}\n\n{plain_text}")
 
-    # 1. ALWAYS check for urgent price drop (< €70) across all 3 daily runs!
+    # 1. ALWAYS check for urgent price drop (< €86) across all 3 daily runs!
     check_and_send_urgent_alerts(all_flights_by_date)
 
     # 2. Check if we should send the routine daily summary email:

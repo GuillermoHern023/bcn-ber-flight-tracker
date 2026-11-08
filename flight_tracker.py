@@ -24,7 +24,7 @@ DESTINATION = "BER"
 DATES = ["2027-01-03", "2027-01-04"]
 RECIPIENT_EMAILS = ["schuetzenc@gmail.com", "guillejhl@gmail.com"]
 FINAL_DEADLINE = date(2026, 11, 15)
-URGENT_PRICE_THRESHOLD = 86.0  # Alert immediately if a direct flight drops below €86
+URGENT_PRICE_THRESHOLD = float(os.environ.get("URGENT_PRICE_THRESHOLD", 70.0))  # Alert immediately if a direct flight drops below €70
 
 BASE_DIR = Path(__file__).parent
 DB_PATH = BASE_DIR / "flight_history.db"

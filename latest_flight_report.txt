@@ -36,12 +36,12 @@ Date: Monday, 2027-01-04 (7 Nonstop Options Available)
 [#3 TOP 3] Ryanair FR 149 | 19:00 BCN -> 21:40 BER | EUR 147.00
   👉 Google Flights (One-Way): https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop
   👉 Airline Direct: https://www.ryanair.com/gb/en/trip/flights/select?originIata=BCN&destinationIata=BER&tpAdults=1&tpStartDate=2027-01-04&isReturn=false
-[Option 4] Vueling VY 1886 | 18:00 BCN -> 20:40 BER | EUR 152.00
-  👉 Google Flights (One-Way): https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop
-  👉 Airline Direct: https://www.vueling.com/en
-[Option 5] easyJet U2 5102 | 07:20 BCN -> 10:05 BER | EUR 153.00
+[Option 4] easyJet U2 5102 | 07:20 BCN -> 10:05 BER | EUR 153.00
   👉 Google Flights (One-Way): https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop
   👉 Airline Direct: https://www.easyjet.com/en
+[Option 5] Vueling VY 1886 | 18:00 BCN -> 20:40 BER | EUR 162.00
+  👉 Google Flights (One-Way): https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop
+  👉 Airline Direct: https://www.vueling.com/en
 [Option 6] Vueling VY 1882 | 13:15 BCN -> 15:55 BER | EUR 186.00
   👉 Google Flights (One-Way): https://www.google.com/travel/flights?q=one-way%20flights%20from%20BCN%20to%20BER%20on%202027-01-04%20nonstop
   👉 Airline Direct: https://www.vueling.com/en

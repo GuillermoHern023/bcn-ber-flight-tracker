@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 328.0,
-        "avg": 206.15,
+        "avg": 206.33,
         "median": 175.0,
-        "count": 504
+        "count": 511
       },
       "Ryanair": {
         "min": 110.99,
         "max": 300.81,
-        "avg": 199.09,
+        "avg": 198.99,
         "median": 170.49,
-        "count": 270
+        "count": 273
       },
       "easyJet": {
         "min": 153.0,
         "max": 344.0,
-        "avg": 240.32,
+        "avg": 239.89,
         "median": 244.0,
-        "count": 117
+        "count": 119
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 344.0,
-        "avg": 271.45,
-        "median": 278.19,
-        "count": 387
+        "avg": 271.55,
+        "median": 278.09,
+        "count": 392
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 201.0,
-        "avg": 160.16,
+        "avg": 160.19,
         "median": 162.0,
-        "count": 504
+        "count": 511
       }
     },
     "daily_trends": [
@@ -648,6 +648,13 @@
         "median_price": 193.5,
         "avg_price": 210.25,
         "max_price": 328.0
+      },
+      {
+        "search_date": "11-08 15:23",
+        "min_price": 143.0,
+        "median_price": 193.5,
+        "avg_price": 211.08,
+        "max_price": 328.0
       }
     ],
     "hourly_data": [
@@ -708,17 +715,17 @@
         "departure_date": "2027-01-04"
       },
       {
-        "time_str": "18:00",
-        "hour": 18.0,
-        "price": 152.0,
-        "airline": "Vueling",
-        "departure_date": "2027-01-04"
-      },
-      {
         "time_str": "07:20",
         "hour": 7.33,
         "price": 153.0,
         "airline": "easyJet",
+        "departure_date": "2027-01-04"
+      },
+      {
+        "time_str": "18:00",
+        "hour": 18.0,
+        "price": 162.0,
+        "airline": "Vueling",
         "departure_date": "2027-01-04"
       },
       {
@@ -874,21 +881,21 @@
         "date": "2027-01-04"
       },
       {
-        "airline": "Vueling",
-        "flight_number": "VY 1886",
-        "departure_time": "18:00",
-        "arrival_time": "20:40",
-        "price": 152.0,
-        "price_str": "EUR 152.00",
-        "date": "2027-01-04"
-      },
-      {
         "airline": "easyJet",
         "flight_number": "U2 5102",
         "departure_time": "07:20",
         "arrival_time": "10:05",
         "price": 153.0,
         "price_str": "EUR 153.00",
+        "date": "2027-01-04"
+      },
+      {
+        "airline": "Vueling",
+        "flight_number": "VY 1886",
+        "departure_time": "18:00",
+        "arrival_time": "20:40",
+        "price": 162.0,
+        "price_str": "EUR 162.00",
         "date": "2027-01-04"
       },
       {

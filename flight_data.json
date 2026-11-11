@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 212.17,
+        "avg": 212.47,
         "median": 187.0,
-        "count": 679
+        "count": 686
       },
       "Ryanair": {
         "min": 110.99,
         "max": 308.76,
-        "avg": 199.25,
-        "median": 166.0,
-        "count": 345
+        "avg": 199.35,
+        "median": 166.5,
+        "count": 348
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 229.72,
+        "avg": 229.38,
         "median": 244.0,
-        "count": 167
+        "count": 169
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 277.15,
+        "avg": 277.51,
         "median": 278.19,
-        "count": 512
+        "count": 517
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 160.93,
+        "avg": 160.96,
         "median": 162.0,
-        "count": 679
+        "count": 686
       }
     },
     "daily_trends": [
@@ -802,13 +802,20 @@
         "median_price": 187.0,
         "avg_price": 226.83,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-11 09:02",
+        "min_price": 138.0,
+        "median_price": 187.0,
+        "avg_price": 227.01,
+        "max_price": 409.0
       }
     ],
     "hourly_data": [
       {
         "time_str": "18:40",
         "hour": 18.67,
-        "price": 267.0,
+        "price": 264.0,
         "airline": "easyJet",
         "departure_date": "2027-01-03"
       },
@@ -857,14 +864,14 @@
       {
         "time_str": "11:50",
         "hour": 11.83,
-        "price": 153.25,
+        "price": 155.39,
         "airline": "Ryanair",
         "departure_date": "2027-01-04"
       },
       {
         "time_str": "19:00",
         "hour": 19.0,
-        "price": 164.0,
+        "price": 167.0,
         "airline": "Ryanair",
         "departure_date": "2027-01-04"
       },
@@ -898,8 +905,8 @@
         "flight_number": "U2 Nonstop",
         "departure_time": "18:40",
         "arrival_time": "21:30",
-        "price": 267.0,
-        "price_str": "EUR 267.00",
+        "price": 264.0,
+        "price_str": "EUR 264.00",
         "date": "2027-01-03"
       },
       {
@@ -945,8 +952,8 @@
         "flight_number": "FR 133",
         "departure_time": "11:50",
         "arrival_time": "14:30",
-        "price": 153.25,
-        "price_str": "EUR 153.25",
+        "price": 155.39,
+        "price_str": "EUR 155.39",
         "date": "2027-01-04"
       }
     ]
@@ -958,8 +965,8 @@
         "flight_number": "U2 Nonstop",
         "departure_time": "18:40",
         "arrival_time": "21:30",
-        "price": 267.0,
-        "price_str": "EUR 267.00",
+        "price": 264.0,
+        "price_str": "EUR 264.00",
         "date": "2027-01-03"
       },
       {
@@ -1023,8 +1030,8 @@
         "flight_number": "FR 133",
         "departure_time": "11:50",
         "arrival_time": "14:30",
-        "price": 153.25,
-        "price_str": "EUR 153.25",
+        "price": 155.39,
+        "price_str": "EUR 155.39",
         "date": "2027-01-04"
       },
       {
@@ -1032,8 +1039,8 @@
         "flight_number": "FR 149",
         "departure_time": "19:00",
         "arrival_time": "21:40",
-        "price": 164.0,
-        "price_str": "EUR 164.00",
+        "price": 167.0,
+        "price_str": "EUR 167.00",
         "date": "2027-01-04"
       },
       {

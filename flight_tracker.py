@@ -284,6 +284,28 @@ def record_flights_to_db(all_flights_by_date):
     conn.commit()
     conn.close()
 
+def _aggregate_trend_groups(rows, slice_len):
+    """Aggregate (recorded_at, price) rows into ordered trend points by timestamp prefix."""
+    groups = {}
+    for rec_ts, p in rows:
+        key = rec_ts[:slice_len]
+        groups.setdefault(key, []).append(p)
+    points = []
+    for key, p_list in groups.items():
+        if slice_len == 10:
+            label = datetime.strptime(key, "%Y-%m-%d").strftime("%b %d")
+        else:
+            label = key[5:]  # MM-DD HH:MM
+        points.append({
+            "search_date": label,
+            "iso_ts": key,
+            "min_price": round(min(p_list), 2),
+            "median_price": round(statistics.median(p_list), 2),
+            "avg_price": round(statistics.mean(p_list), 2),
+            "max_price": round(max(p_list), 2)
+        })
+    return points
+
 def compute_statistics():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
@@ -318,20 +340,21 @@ def compute_statistics():
             "count": len(prices)
         }
 
-    # Check-by-Check Price Trend History (Every check timestamp vs Min/Median/Avg/Max)
-    cur.execute("SELECT SUBSTR(recorded_at, 6, 11) as check_ts, price FROM flight_prices ORDER BY recorded_at")
-    ts_groups = {}
-    for s_date, p in cur.fetchall():
-        ts_groups.setdefault(s_date, []).append(p)
-    daily_trends = []
-    for s_date, p_list in ts_groups.items():
-        daily_trends.append({
-            "search_date": s_date,
-            "min_price": round(min(p_list), 2),
-            "median_price": round(statistics.median(p_list), 2),
-            "avg_price": round(statistics.mean(p_list), 2),
-            "max_price": round(max(p_list), 2)
-        })
+    # Price Trend Series (Daily + Check-by-Check across All Dates and Individual Departure Dates)
+    cur.execute("SELECT recorded_at, departure_date, price FROM flight_prices ORDER BY recorded_at")
+    all_rows = cur.fetchall()
+    rows_by_scope = {"all": [(r[0], r[2]) for r in all_rows]}
+    for dep_d in DATES:
+        rows_by_scope[dep_d] = [(r[0], r[2]) for r in all_rows if r[1] == dep_d]
+
+    trend_series = {}
+    for scope, scoped_rows in rows_by_scope.items():
+        trend_series[scope] = {
+            "daily": _aggregate_trend_groups(scoped_rows, 10),
+            "checks": _aggregate_trend_groups(scoped_rows, 16)
+        }
+
+    daily_trends = trend_series["all"]["checks"]
 
     # Hourly distribution (Time of Day vs Price from Latest Snapshot to avoid duplicate stacking)
     cur.execute("""
@@ -355,6 +378,7 @@ def compute_statistics():
         "airline_stats": airline_stats,
         "date_stats": date_stats,
         "daily_trends": daily_trends,
+        "trend_series": trend_series,
         "hourly_data": hourly_data
     }
 
@@ -749,16 +773,38 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
 
       <!-- Graph 2: Price Trajectory Over Time -->
       <div class="glass-card rounded-2xl p-4 sm:p-6 shadow-xs">
-        <div class="flex items-start justify-between gap-2 mb-3 sm:mb-4">
+        <div class="flex items-start justify-between gap-2 mb-2.5">
           <div>
             <h2 class="text-base sm:text-lg font-bold text-slate-900">Price Trend History</h2>
-            <p class="text-[11px] sm:text-xs text-slate-500">Tracked lowest &amp; average fares over time</p>
+            <p id="trendSubtitle" class="text-[11px] sm:text-xs text-slate-500">Daily lowest, median &amp; average fares over time</p>
           </div>
           <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold shrink-0">13x Daily Cloud</span>
         </div>
-        <div class="h-60 sm:h-72">
-          <canvas id="priceTrendChart"></canvas>
+
+        <!-- Trend Chart Filters -->
+        <div class="flex flex-wrap items-center gap-1.5 mb-3 pb-2.5 border-b border-slate-100">
+          <div class="inline-flex bg-slate-100 p-0.5 rounded-lg" role="group" aria-label="Trend granularity">
+            <button type="button" data-trend-granularity="daily" aria-pressed="true" onclick="setTrendGranularity('daily')" class="trend-gran-btn px-2.5 py-1 text-[11px] font-bold rounded-md bg-white text-slate-900 shadow-xs transition">Daily</button>
+            <button type="button" data-trend-granularity="checks" aria-pressed="false" onclick="setTrendGranularity('checks')" class="trend-gran-btn px-2.5 py-1 text-[11px] font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">All Checks</button>
+          </div>
+          <div class="inline-flex bg-slate-100 p-0.5 rounded-lg" role="group" aria-label="Trend time window">
+            <button type="button" data-trend-window="all" aria-pressed="true" onclick="setTrendWindow('all')" class="trend-win-btn px-2 py-1 text-[11px] font-bold rounded-md bg-white text-slate-900 shadow-xs transition">All</button>
+            <button type="button" data-trend-window="7d" aria-pressed="false" onclick="setTrendWindow('7d')" class="trend-win-btn px-2 py-1 text-[11px] font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">7D</button>
+            <button type="button" data-trend-window="48h" aria-pressed="false" onclick="setTrendWindow('48h')" class="trend-win-btn px-2 py-1 text-[11px] font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">48h</button>
+          </div>
+          <div class="inline-flex bg-slate-100 p-0.5 rounded-lg" role="group" aria-label="Trend departure date">
+            <button type="button" data-trend-scope="all" aria-pressed="true" onclick="setTrendScope('all')" class="trend-scope-btn px-2 py-1 text-[11px] font-bold rounded-md bg-white text-slate-900 shadow-xs transition">Both</button>
+            <button type="button" data-trend-scope="2027-01-03" aria-pressed="false" onclick="setTrendScope('2027-01-03')" class="trend-scope-btn px-2 py-1 text-[11px] font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">Jan 3</button>
+            <button type="button" data-trend-scope="2027-01-04" aria-pressed="false" onclick="setTrendScope('2027-01-04')" class="trend-scope-btn px-2 py-1 text-[11px] font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">Jan 4</button>
+          </div>
         </div>
+
+        <figure class="m-0">
+          <div class="h-60 sm:h-72">
+            <canvas id="priceTrendChart" role="img" aria-label="Line chart showing lowest, median, and average BCN to BER direct flight prices over time"></canvas>
+          </div>
+          <figcaption id="trendChartCaption" class="sr-only">Tracked flight price trend history across filtered date range and resolution.</figcaption>
+        </figure>
       </div>
 
       <!-- Graph 3: Departure Date Comparison -->
@@ -835,45 +881,147 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
       }}
     }});
 
-    // 2. Price Trend Chart
-    const trendDates = statsData.daily_trends.map(t => t.search_date);
-    new Chart(document.getElementById('priceTrendChart'), {{
-      type: 'line',
-      data: {{
-        labels: trendDates,
-        datasets: [
-          {{
-            label: 'Lowest (€)',
-            data: statsData.daily_trends.map(t => t.min_price),
-            borderColor: '#10B981',
-            backgroundColor: 'rgba(16, 185, 129, 0.12)',
-            fill: true,
-            tension: 0.3,
-            borderWidth: 2.5,
-            pointRadius: isMobile ? 3 : 4
-          }},
-          {{
-            label: 'Average (€)',
-            data: statsData.daily_trends.map(t => t.avg_price),
-            borderColor: '#3B82F6',
-            backgroundColor: 'transparent',
-            borderDash: [4, 4],
-            tension: 0.3,
-            borderWidth: 2,
-            pointRadius: isMobile ? 3 : 4
-          }}
-        ]
-      }},
-      options: {{
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {{ legend: commonLegend }},
-        scales: {{
-          y: {{ ticks: {{ font: {{ size: isMobile ? 10 : 12 }} }}, title: {{ display: !isMobile, text: 'Fare in EUR' }} }},
-          x: {{ ticks: {{ font: {{ size: isMobile ? 9 : 11 }}, maxRotation: 30 }} }}
+    // 2. Price Trend Chart (Interactive Granularity, Window & Date Scope)
+    let trendGranularity = 'daily';
+    let trendWindow = 'all';
+    let trendScope = 'all';
+    let priceTrendChartInstance = null;
+
+    function getFilteredTrendSeries() {{
+      const scoped = (statsData.trend_series && statsData.trend_series[trendScope])
+        ? statsData.trend_series[trendScope][trendGranularity]
+        : statsData.daily_trends;
+      if (!scoped || scoped.length === 0) return [];
+      if (trendWindow === 'all') return scoped;
+
+      const lastTs = scoped[scoped.length - 1].iso_ts;
+      const lastDate = new Date(lastTs.replace(' ', 'T') + (lastTs.length === 10 ? 'T23:59:59' : ':00'));
+      const hoursBack = trendWindow === '48h' ? 48 : 24 * 7;
+      const cutoffMs = lastDate.getTime() - hoursBack * 3600 * 1000;
+      return scoped.filter(pt => {{
+        const ptDate = new Date(pt.iso_ts.replace(' ', 'T') + (pt.iso_ts.length === 10 ? 'T12:00:00' : ':00'));
+        return ptDate.getTime() >= cutoffMs;
+      }});
+    }}
+
+    function updateButtonGroupState(selector, dataAttr, activeVal) {{
+      document.querySelectorAll(selector).forEach(btn => {{
+        const isActive = btn.getAttribute(dataAttr) === activeVal;
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        btn.className = btn.className.split(' ')[0] + ' px-2.5 py-1 text-[11px] rounded-md transition ' + (
+          isActive ? 'font-bold bg-white text-slate-900 shadow-xs' : 'font-semibold text-slate-600 hover:text-slate-900'
+        );
+      }});
+    }}
+
+    function renderPriceTrendChart() {{
+      const series = getFilteredTrendSeries();
+      const labels = series.map(t => t.search_date);
+      // Only show static bullet points when points have room; hide static points on dense series so lines stay crisp
+      const ptRadius = series.length <= 24 ? (isMobile ? 2.5 : 3.5) : 0;
+
+      const scopeLabel = trendScope === 'all' ? 'Both Dates' : (trendScope === '2027-01-03' ? 'Sun, Jan 3' : 'Mon, Jan 4');
+      const granLabel = trendGranularity === 'daily' ? `${{series.length}} daily summaries` : `${{series.length}} cloud checks`;
+      const winLabel = trendWindow === 'all' ? 'All Time' : (trendWindow === '7d' ? 'Last 7 Days' : 'Last 48h');
+      document.getElementById('trendSubtitle').textContent = `${{scopeLabel}} • ${{winLabel}} (${{granLabel}})`;
+      document.getElementById('trendChartCaption').textContent = `Price trend history showing lowest, median, and average fares for ${{scopeLabel}} over ${{winLabel}} (${{granLabel}}).`;
+
+      const datasets = [
+        {{
+          label: 'Lowest (€)',
+          data: series.map(t => t.min_price),
+          borderColor: '#10B981',
+          backgroundColor: 'rgba(16, 185, 129, 0.12)',
+          fill: true,
+          tension: 0.25,
+          borderWidth: 2.5,
+          pointRadius: ptRadius,
+          pointBackgroundColor: '#10B981',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHitRadius: 12
+        }},
+        {{
+          label: 'Median (€)',
+          data: series.map(t => t.median_price),
+          borderColor: '#8B5CF6',
+          backgroundColor: 'transparent',
+          tension: 0.25,
+          borderWidth: 1.75,
+          pointRadius: ptRadius,
+          pointBackgroundColor: '#8B5CF6',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHitRadius: 12
+        }},
+        {{
+          label: 'Average (€)',
+          data: series.map(t => t.avg_price),
+          borderColor: '#3B82F6',
+          backgroundColor: 'transparent',
+          borderDash: [4, 4],
+          tension: 0.25,
+          borderWidth: 2,
+          pointRadius: ptRadius,
+          pointBackgroundColor: '#3B82F6',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHitRadius: 12
         }}
+      ];
+
+      if (priceTrendChartInstance) {{
+        priceTrendChartInstance.data.labels = labels;
+        priceTrendChartInstance.data.datasets = datasets;
+        priceTrendChartInstance.update();
+        return;
       }}
-    }});
+
+      priceTrendChartInstance = new Chart(document.getElementById('priceTrendChart'), {{
+        type: 'line',
+        data: {{ labels, datasets }},
+        options: {{
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {{ mode: 'index', intersect: false }},
+          plugins: {{
+            legend: commonLegend,
+            tooltip: {{
+              callbacks: {{
+                label: (ctx) => `${{ctx.dataset.label}}: €${{ctx.parsed.y.toFixed(2)}}`
+              }}
+            }}
+          }},
+          scales: {{
+            y: {{ ticks: {{ font: {{ size: isMobile ? 10 : 12 }} }}, title: {{ display: !isMobile, text: 'Fare in EUR' }} }},
+            x: {{ ticks: {{ autoSkip: true, maxTicksLimit: isMobile ? 5 : 9, maxRotation: 25, font: {{ size: isMobile ? 9 : 11 }} }} }}
+          }}
+        }}
+      }});
+    }}
+
+    function setTrendGranularity(val) {{
+      trendGranularity = val;
+      updateButtonGroupState('.trend-gran-btn', 'data-trend-granularity', val);
+      renderPriceTrendChart();
+    }}
+
+    function setTrendWindow(val) {{
+      trendWindow = val;
+      updateButtonGroupState('.trend-win-btn', 'data-trend-window', val);
+      renderPriceTrendChart();
+    }}
+
+    function setTrendScope(val) {{
+      trendScope = val;
+      updateButtonGroupState('.trend-scope-btn', 'data-trend-scope', val);
+      renderPriceTrendChart();
+    }}
+
+    renderPriceTrendChart();
 
     // 3. Date Comparison Chart
     const dateLabels = Object.keys(statsData.date_stats);

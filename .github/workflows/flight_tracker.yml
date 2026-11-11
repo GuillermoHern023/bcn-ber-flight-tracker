@@ -18,6 +18,8 @@ concurrency:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   track-flights:
@@ -67,3 +69,11 @@ jobs:
               sleep 4
             done
           fi
+
+  deploy-pages:
+    needs: track-flights
+    uses: ./.github/workflows/deploy_pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

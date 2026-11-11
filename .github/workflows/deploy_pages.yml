@@ -1,0 +1,54 @@
+name: Deploy Flight Dashboard to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "dashboard.html"
+      - "index.html"
+      - "flight_data.json"
+      - ".nojekyll"
+      - ".github/workflows/deploy_pages.yml"
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Prepare static site bundle
+        run: |
+          mkdir -p _site
+          cp index.html dashboard.html flight_data.json _site/
+          touch _site/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

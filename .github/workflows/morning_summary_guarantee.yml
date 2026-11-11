@@ -13,6 +13,8 @@ concurrency:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   morning-summary-guarantee:
@@ -58,3 +60,11 @@ jobs:
               sleep 4
             done
           fi
+
+  deploy-pages:
+    needs: morning-summary-guarantee
+    uses: ./.github/workflows/deploy_pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

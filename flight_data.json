@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 211.55,
+        "avg": 211.86,
         "median": 187.0,
-        "count": 665
+        "count": 672
       },
       "Ryanair": {
         "min": 110.99,
         "max": 308.76,
-        "avg": 199.09,
-        "median": 167.0,
-        "count": 339
+        "avg": 199.17,
+        "median": 166.5,
+        "count": 342
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 230.39,
+        "avg": 230.05,
         "median": 244.0,
-        "count": 163
+        "count": 165
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 276.4,
-        "median": 278.09,
-        "count": 502
+        "avg": 276.78,
+        "median": 278.19,
+        "count": 507
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 160.86,
+        "avg": 160.89,
         "median": 162.0,
-        "count": 665
+        "count": 672
       }
     },
     "daily_trends": [
@@ -788,6 +788,13 @@
         "median_price": 187.0,
         "avg_price": 226.17,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-11 02:04",
+        "min_price": 138.0,
+        "median_price": 187.0,
+        "avg_price": 226.83,
+        "max_price": 409.0
       }
     ],
     "hourly_data": [
@@ -829,7 +836,7 @@
       {
         "time_str": "07:20",
         "hour": 7.33,
-        "price": 130.0,
+        "price": 138.0,
         "airline": "easyJet",
         "departure_date": "2027-01-04"
       },
@@ -913,8 +920,8 @@
         "flight_number": "U2 5102",
         "departure_time": "07:20",
         "arrival_time": "10:05",
-        "price": 130.0,
-        "price_str": "EUR 130.00",
+        "price": 138.0,
+        "price_str": "EUR 138.00",
         "date": "2027-01-04"
       },
       {
@@ -991,8 +998,8 @@
         "flight_number": "U2 5102",
         "departure_time": "07:20",
         "arrival_time": "10:05",
-        "price": 130.0,
-        "price_str": "EUR 130.00",
+        "price": 138.0,
+        "price_str": "EUR 138.00",
         "date": "2027-01-04"
       },
       {

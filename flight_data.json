@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 212.76,
+        "avg": 213.05,
         "median": 187.0,
-        "count": 693
+        "count": 700
       },
       "Ryanair": {
         "min": 110.99,
         "max": 308.76,
-        "avg": 199.44,
+        "avg": 199.54,
         "median": 167.0,
-        "count": 351
+        "count": 354
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 229.05,
+        "avg": 228.72,
         "median": 244.0,
-        "count": 171
+        "count": 173
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 277.86,
+        "avg": 278.21,
         "median": 278.19,
-        "count": 522
+        "count": 527
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 161.0,
+        "avg": 161.04,
         "median": 162.0,
-        "count": 693
+        "count": 700
       }
     },
     "daily_trends": [
@@ -812,6 +812,13 @@
       },
       {
         "search_date": "11-11 15:44",
+        "min_price": 138.0,
+        "median_price": 187.0,
+        "avg_price": 227.01,
+        "max_price": 409.0
+      },
+      {
+        "search_date": "11-11 18:18",
         "min_price": 138.0,
         "median_price": 187.0,
         "avg_price": 227.01,

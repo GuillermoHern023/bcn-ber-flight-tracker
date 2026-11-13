@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 216.53,
+        "avg": 216.77,
         "median": 195.0,
-        "count": 791
+        "count": 798
       },
       "Ryanair": {
         "min": 110.99,
         "max": 316.7,
-        "avg": 201.08,
+        "avg": 201.22,
         "median": 168.5,
-        "count": 393
+        "count": 396
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 225.63,
+        "avg": 225.55,
         "median": 244.0,
-        "count": 199
+        "count": 201
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 282.12,
-        "median": 281.79,
-        "count": 592
+        "avg": 282.43,
+        "median": 285.39,
+        "count": 597
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 162.06,
+        "avg": 162.15,
         "median": 162.0,
-        "count": 791
+        "count": 798
       }
     },
     "daily_trends": [
@@ -1039,6 +1039,14 @@
         "median_price": 195.0,
         "avg_price": 232.18,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-14 00:44",
+        "iso_ts": "2026-11-14 00:44",
+        "min_price": 139.0,
+        "median_price": 195.0,
+        "avg_price": 233.18,
+        "max_price": 409.0
       }
     ],
     "trend_series": {
@@ -1234,6 +1242,14 @@
             "min_price": 139.0,
             "median_price": 195.0,
             "avg_price": 232.02,
+            "max_price": 409.0
+          },
+          {
+            "search_date": "Nov 14",
+            "iso_ts": "2026-11-14",
+            "min_price": 139.0,
+            "median_price": 195.0,
+            "avg_price": 233.18,
             "max_price": 409.0
           }
         ],
@@ -2237,6 +2253,14 @@
             "median_price": 195.0,
             "avg_price": 232.18,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-14 00:44",
+            "iso_ts": "2026-11-14 00:44",
+            "min_price": 139.0,
+            "median_price": 195.0,
+            "avg_price": 233.18,
+            "max_price": 409.0
           }
         ]
       },
@@ -2432,6 +2456,14 @@
             "min_price": 264.0,
             "median_price": 295.0,
             "avg_price": 315.15,
+            "max_price": 409.0
+          },
+          {
+            "search_date": "Nov 14",
+            "iso_ts": "2026-11-14",
+            "min_price": 276.0,
+            "median_price": 295.0,
+            "avg_price": 318.34,
             "max_price": 409.0
           }
         ],
@@ -3435,6 +3467,14 @@
             "median_price": 295.0,
             "avg_price": 315.94,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-14 00:44",
+            "iso_ts": "2026-11-14 00:44",
+            "min_price": 276.0,
+            "median_price": 295.0,
+            "avg_price": 318.34,
+            "max_price": 409.0
           }
         ]
       },
@@ -3630,6 +3670,14 @@
             "min_price": 139.0,
             "median_price": 171.0,
             "avg_price": 172.64,
+            "max_price": 195.0
+          },
+          {
+            "search_date": "Nov 14",
+            "iso_ts": "2026-11-14",
+            "min_price": 139.0,
+            "median_price": 171.0,
+            "avg_price": 172.36,
             "max_price": 195.0
           }
         ],
@@ -4633,6 +4681,14 @@
             "median_price": 171.0,
             "avg_price": 172.36,
             "max_price": 195.0
+          },
+          {
+            "search_date": "11-14 00:44",
+            "iso_ts": "2026-11-14 00:44",
+            "min_price": 139.0,
+            "median_price": 171.0,
+            "avg_price": 172.36,
+            "max_price": 195.0
           }
         ]
       }
@@ -4641,7 +4697,7 @@
       {
         "time_str": "18:40",
         "hour": 18.67,
-        "price": 264.0,
+        "price": 276.0,
         "airline": "easyJet",
         "departure_date": "2027-01-03"
       },
@@ -4731,8 +4787,8 @@
         "flight_number": "U2 Nonstop",
         "departure_time": "18:40",
         "arrival_time": "21:30",
-        "price": 264.0,
-        "price_str": "EUR 264.00",
+        "price": 276.0,
+        "price_str": "EUR 276.00",
         "date": "2027-01-03"
       },
       {
@@ -4791,8 +4847,8 @@
         "flight_number": "U2 Nonstop",
         "departure_time": "18:40",
         "arrival_time": "21:30",
-        "price": 264.0,
-        "price_str": "EUR 264.00",
+        "price": 276.0,
+        "price_str": "EUR 276.00",
         "date": "2027-01-03"
       },
       {

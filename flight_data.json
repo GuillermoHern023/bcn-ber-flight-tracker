@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 217.35,
+        "avg": 217.53,
         "median": 195.0,
-        "count": 819
+        "count": 826
       },
       "Ryanair": {
         "min": 110.99,
         "max": 316.7,
-        "avg": 201.56,
+        "avg": 201.68,
         "median": 168.5,
-        "count": 405
+        "count": 408
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 225.31,
+        "avg": 225.24,
         "median": 244.0,
-        "count": 207
+        "count": 209
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 283.12,
+        "avg": 283.35,
         "median": 285.39,
-        "count": 612
+        "count": 617
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 162.4,
+        "avg": 162.49,
         "median": 162.0,
-        "count": 819
+        "count": 826
       }
     },
     "daily_trends": [
@@ -1071,6 +1071,14 @@
         "median_price": 195.0,
         "avg_price": 229.9,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-14 20:59",
+        "iso_ts": "2026-11-14 20:59",
+        "min_price": 139.0,
+        "median_price": 195.0,
+        "avg_price": 229.9,
+        "max_price": 409.0
       }
     ],
     "trend_series": {
@@ -1273,7 +1281,7 @@
             "iso_ts": "2026-11-14",
             "min_price": 139.0,
             "median_price": 195.0,
-            "avg_price": 230.77,
+            "avg_price": 230.6,
             "max_price": 409.0
           }
         ],
@@ -2309,6 +2317,14 @@
             "median_price": 195.0,
             "avg_price": 229.9,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-14 20:59",
+            "iso_ts": "2026-11-14 20:59",
+            "min_price": 139.0,
+            "median_price": 195.0,
+            "avg_price": 229.9,
+            "max_price": 409.0
           }
         ]
       },
@@ -2511,7 +2527,7 @@
             "iso_ts": "2026-11-14",
             "min_price": 262.0,
             "median_price": 295.0,
-            "avg_price": 312.79,
+            "avg_price": 312.42,
             "max_price": 409.0
           }
         ],
@@ -3547,6 +3563,14 @@
             "median_price": 295.0,
             "avg_price": 310.95,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-14 20:59",
+            "iso_ts": "2026-11-14 20:59",
+            "min_price": 262.0,
+            "median_price": 295.0,
+            "avg_price": 310.95,
+            "max_price": 409.0
           }
         ]
       },
@@ -3749,7 +3773,7 @@
             "iso_ts": "2026-11-14",
             "min_price": 139.0,
             "median_price": 171.0,
-            "avg_price": 172.19,
+            "avg_price": 172.15,
             "max_price": 195.0
           }
         ],
@@ -4781,6 +4805,14 @@
           {
             "search_date": "11-14 15:21",
             "iso_ts": "2026-11-14 15:21",
+            "min_price": 139.0,
+            "median_price": 171.0,
+            "avg_price": 172.02,
+            "max_price": 195.0
+          },
+          {
+            "search_date": "11-14 20:59",
+            "iso_ts": "2026-11-14 20:59",
             "min_price": 139.0,
             "median_price": 171.0,
             "avg_price": 172.02,

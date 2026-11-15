@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 218.08,
+        "avg": 218.26,
         "median": 195.0,
-        "count": 847
+        "count": 854
       },
       "Ryanair": {
         "min": 110.99,
         "max": 316.7,
-        "avg": 201.97,
+        "avg": 202.1,
         "median": 168.5,
-        "count": 417
+        "count": 420
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 225.02,
+        "avg": 224.95,
         "median": 244.0,
-        "count": 215
+        "count": 217
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 283.99,
+        "avg": 284.2,
         "median": 285.39,
-        "count": 632
+        "count": 637
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 162.73,
-        "median": 162.0,
-        "count": 847
+        "avg": 162.83,
+        "median": 162.5,
+        "count": 854
       }
     },
     "daily_trends": [
@@ -1103,6 +1103,14 @@
         "median_price": 195.0,
         "avg_price": 229.37,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-15 17:28",
+        "iso_ts": "2026-11-15 17:28",
+        "min_price": 139.0,
+        "median_price": 195.0,
+        "avg_price": 230.96,
+        "max_price": 409.0
       }
     ],
     "trend_series": {
@@ -1313,7 +1321,7 @@
             "iso_ts": "2026-11-15",
             "min_price": 139.0,
             "median_price": 195.0,
-            "avg_price": 229.88,
+            "avg_price": 230.15,
             "max_price": 409.0
           }
         ],
@@ -2381,6 +2389,14 @@
             "median_price": 195.0,
             "avg_price": 229.37,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-15 17:28",
+            "iso_ts": "2026-11-15 17:28",
+            "min_price": 139.0,
+            "median_price": 195.0,
+            "avg_price": 230.96,
+            "max_price": 409.0
           }
         ]
       },
@@ -2591,7 +2607,7 @@
             "iso_ts": "2026-11-15",
             "min_price": 262.0,
             "median_price": 295.0,
-            "avg_price": 310.42,
+            "avg_price": 310.35,
             "max_price": 409.0
           }
         ],
@@ -3659,6 +3675,14 @@
             "median_price": 295.0,
             "avg_price": 310.15,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-15 17:28",
+            "iso_ts": "2026-11-15 17:28",
+            "min_price": 262.0,
+            "median_price": 295.0,
+            "avg_price": 310.15,
+            "max_price": 409.0
           }
         ]
       },
@@ -3869,7 +3893,7 @@
             "iso_ts": "2026-11-15",
             "min_price": 139.0,
             "median_price": 171.0,
-            "avg_price": 172.36,
+            "avg_price": 172.87,
             "max_price": 195.0
           }
         ],
@@ -4937,6 +4961,14 @@
             "median_price": 171.0,
             "avg_price": 171.67,
             "max_price": 195.0
+          },
+          {
+            "search_date": "11-15 17:28",
+            "iso_ts": "2026-11-15 17:28",
+            "min_price": 139.0,
+            "median_price": 179.0,
+            "avg_price": 174.39,
+            "max_price": 195.0
           }
         ]
       }
@@ -4999,17 +5031,17 @@
         "departure_date": "2027-01-04"
       },
       {
-        "time_str": "11:50",
-        "hour": 11.83,
-        "price": 171.0,
-        "airline": "Ryanair",
-        "departure_date": "2027-01-04"
-      },
-      {
         "time_str": "18:00",
         "hour": 18.0,
         "price": 179.0,
         "airline": "Vueling",
+        "departure_date": "2027-01-04"
+      },
+      {
+        "time_str": "11:50",
+        "hour": 11.83,
+        "price": 190.0,
+        "airline": "Ryanair",
         "departure_date": "2027-01-04"
       },
       {
@@ -5165,21 +5197,21 @@
         "date": "2027-01-04"
       },
       {
-        "airline": "Ryanair",
-        "flight_number": "FR 133",
-        "departure_time": "11:50",
-        "arrival_time": "14:30",
-        "price": 171.0,
-        "price_str": "EUR 171.00",
-        "date": "2027-01-04"
-      },
-      {
         "airline": "Vueling",
         "flight_number": "VY 1886",
         "departure_time": "18:00",
         "arrival_time": "20:40",
         "price": 179.0,
         "price_str": "EUR 179.00",
+        "date": "2027-01-04"
+      },
+      {
+        "airline": "Ryanair",
+        "flight_number": "FR 133",
+        "departure_time": "11:50",
+        "arrival_time": "14:30",
+        "price": 190.0,
+        "price_str": "EUR 190.00",
         "date": "2027-01-04"
       },
       {

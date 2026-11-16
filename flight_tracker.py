@@ -23,7 +23,7 @@ ORIGIN = "BCN"
 DESTINATION = "BER"
 DATES = ["2027-01-03", "2027-01-04"]
 RECIPIENT_EMAILS = ["schuetzenc@gmail.com", "guillejhl@gmail.com"]
-FINAL_DEADLINE = date(2026, 11, 15)
+FINAL_DEADLINE = date.fromisoformat(os.environ.get("FINAL_DEADLINE", "2027-01-03"))
 URGENT_PRICE_THRESHOLD = float(os.environ.get("URGENT_PRICE_THRESHOLD", 70.0))  # Alert immediately if a direct flight drops below €70
 
 BASE_DIR = Path(__file__).parent
@@ -62,7 +62,8 @@ ARTIFACT_DASHBOARD_PATHS = [
     Path(r"C:\Users\guill\.gemini\antigravity\brain\1fdc31f9-dae2-456c-860f-ec4b01bcce80\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\d9103e7a-60c1-499b-8579-5fbf96427873\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\2efcee7f-d642-4036-a24a-f1f1079a9ed8\flight_dashboard.html"),
-    Path(r"C:\Users\guill\.gemini\antigravity\brain\b8e8be53-bd4f-4257-a080-3303aeaebaa4\flight_dashboard.html")
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\b8e8be53-bd4f-4257-a080-3303aeaebaa4\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\e0be801d-12eb-4784-ba2a-2792864a14d9\flight_dashboard.html")
 ]
 
 def init_db():
@@ -621,7 +622,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
         <div class="flex items-center justify-between sm:justify-start gap-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2.5">
           <div class="text-left sm:text-center">
             <div class="text-[10px] sm:text-xs text-slate-300 uppercase tracking-wide">Booking Deadline</div>
-            <div class="text-sm sm:text-lg font-bold text-amber-300">Nov 15, 2026 <span class="text-xs font-normal text-slate-300">({days_left}d left)</span></div>
+            <div class="text-sm sm:text-lg font-bold text-amber-300">{FINAL_DEADLINE.strftime("%b %d, %Y")} <span class="text-xs font-normal text-slate-300">({days_left}d left)</span></div>
           </div>
           <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg shadow transition shrink-0">
             Export PDF
@@ -841,7 +842,7 @@ def generate_dashboard_html(stats, top_flights_by_date, all_flights_by_date=None
 
     <!-- Footer -->
     <footer class="text-center text-xs text-slate-400 py-6 border-t border-slate-200">
-      Flight Price Monitor Cloud Automation • 13x Daily Checks (Hourly 01:00–08:00 + Daytime CET) • Cutoff Date: November 15, 2026
+      Flight Price Monitor Cloud Automation • 13x Daily Checks (Hourly 01:00–08:00 + Daytime CET) • Cutoff Date: {FINAL_DEADLINE.strftime("%B %d, %Y")}
     </footer>
   </main>
 
@@ -1296,7 +1297,7 @@ def format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights
         "=" * 65,
     ]
     if is_final_day:
-        text_lines.append("[FINAL DEADLINE] Today is November 15, 2026. Please make your purchase immediately!\n")
+        text_lines.append(f"[FINAL DEADLINE] Today is {FINAL_DEADLINE.strftime('%B %d, %Y')}. Please make your purchase immediately!\n")
 
     for d, flights in all_flights_by_date.items():
         weekday = "Sunday" if d == "2027-01-03" else "Monday"
@@ -1317,7 +1318,7 @@ def format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fee2e2; border-left: 4px solid #ef4444; border-radius: 8px; margin-bottom: 20px;">
           <tr>
             <td style="padding: 14px 16px;">
-              <h3 style="margin: 0; color: #991b1b; font-size: 15px; font-weight: 700;">🚨 FINAL PURCHASE DEADLINE TODAY (Nov 15, 2026)</h3>
+              <h3 style="margin: 0; color: #991b1b; font-size: 15px; font-weight: 700;">🚨 FINAL PURCHASE DEADLINE TODAY ({FINAL_DEADLINE.strftime("%b %d, %Y")})</h3>
               <p style="margin: 4px 0 0 0; color: #b91c1c; font-size: 12px;">This is the final automated flight execution. Please lock in your ticket now to avoid price increases.</p>
             </td>
           </tr>
@@ -1328,7 +1329,7 @@ def format_rich_html_email(top_flights_by_date, stats, is_final_day, all_flights
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 20px;">
           <tr>
             <td align="left" style="padding: 12px 14px; color: #166534; font-size: 12px; font-weight: 700;">
-              ⏳ Cutoff: Nov 15, 2026 ({days_left}d left)
+              ⏳ Cutoff: {FINAL_DEADLINE.strftime("%b %d, %Y")} ({days_left}d left)
             </td>
             <td align="right" style="padding: 12px 14px; color: #15803d; font-size: 11px; font-weight: 600;">
               All daily options listed below

@@ -63,8 +63,17 @@ ARTIFACT_DASHBOARD_PATHS = [
     Path(r"C:\Users\guill\.gemini\antigravity\brain\d9103e7a-60c1-499b-8579-5fbf96427873\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\2efcee7f-d642-4036-a24a-f1f1079a9ed8\flight_dashboard.html"),
     Path(r"C:\Users\guill\.gemini\antigravity\brain\b8e8be53-bd4f-4257-a080-3303aeaebaa4\flight_dashboard.html"),
-    Path(r"C:\Users\guill\.gemini\antigravity\brain\e0be801d-12eb-4784-ba2a-2792864a14d9\flight_dashboard.html")
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\e0be801d-12eb-4784-ba2a-2792864a14d9\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\34c72b5b-da3f-45dd-a747-9e83a6144c32\flight_dashboard.html"),
+    Path(r"C:\Users\guill\.gemini\antigravity\brain\cc5da1e0-6140-4b38-9a9e-567fec20d219\flight_dashboard.html")
 ]
+
+if os.environ.get("ANTIGRAVITY_CONVERSATION_ID"):
+    _conv_id = os.environ.get("ANTIGRAVITY_CONVERSATION_ID")
+    _app_data = os.environ.get("ANTIGRAVITY_APP_DATA_DIR", r"C:\Users\guill\.gemini\antigravity")
+    _dyn_path = Path(_app_data) / "brain" / _conv_id / "flight_dashboard.html"
+    if _dyn_path not in ARTIFACT_DASHBOARD_PATHS:
+        ARTIFACT_DASHBOARD_PATHS.append(_dyn_path)
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)

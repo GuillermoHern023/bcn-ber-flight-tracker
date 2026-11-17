@@ -1,10 +1,9 @@
 name: Morning Daily Flight Summary (Fail-Safe Cloud Guarantee)
 
 on:
-  schedule:
-    # Backup fail-safe triggers at 07:48 CET (06:48 UTC) and 08:48 CET (07:48 UTC)
-    # Ensures the morning summary email is always delivered before or around 8:00 AM
-    - cron: "48 6,7 * * *"
+  # Scheduled crons disabled (project cancelled after flight purchase)
+  # schedule:
+  #   - cron: "48 6,7 * * *"
   workflow_dispatch:
 
 concurrency:

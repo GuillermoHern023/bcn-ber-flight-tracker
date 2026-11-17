@@ -4,39 +4,39 @@
       "Vueling": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 219.24,
+        "avg": 219.34,
         "median": 195.0,
-        "count": 889
+        "count": 896
       },
       "Ryanair": {
         "min": 110.99,
         "max": 316.7,
-        "avg": 202.97,
+        "avg": 203.12,
         "median": 170.49,
-        "count": 435
+        "count": 438
       },
       "easyJet": {
         "min": 130.0,
         "max": 344.0,
-        "avg": 224.63,
+        "avg": 224.56,
         "median": 244.0,
-        "count": 227
+        "count": 229
       }
     },
     "date_stats": {
       "2027-01-03": {
         "min": 106.0,
         "max": 409.0,
-        "avg": 285.15,
+        "avg": 285.22,
         "median": 286.0,
-        "count": 662
+        "count": 667
       },
       "2027-01-04": {
         "min": 106.0,
         "max": 214.0,
-        "avg": 163.57,
+        "avg": 163.71,
         "median": 163.0,
-        "count": 889
+        "count": 896
       }
     },
     "daily_trends": [
@@ -1143,6 +1143,14 @@
         "median_price": 195.0,
         "avg_price": 234.88,
         "max_price": 409.0
+      },
+      {
+        "search_date": "11-17 11:53",
+        "iso_ts": "2026-11-17 11:53",
+        "min_price": 151.0,
+        "median_price": 195.0,
+        "avg_price": 228.71,
+        "max_price": 339.0
       }
     ],
     "trend_series": {
@@ -1369,7 +1377,7 @@
             "iso_ts": "2026-11-17",
             "min_price": 151.0,
             "median_price": 195.0,
-            "avg_price": 234.88,
+            "avg_price": 231.79,
             "max_price": 409.0
           }
         ],
@@ -2477,6 +2485,14 @@
             "median_price": 195.0,
             "avg_price": 234.88,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-17 11:53",
+            "iso_ts": "2026-11-17 11:53",
+            "min_price": 151.0,
+            "median_price": 195.0,
+            "avg_price": 228.71,
+            "max_price": 339.0
           }
         ]
       },
@@ -2703,7 +2719,7 @@
             "iso_ts": "2026-11-17",
             "min_price": 262.0,
             "median_price": 295.0,
-            "avg_price": 309.36,
+            "avg_price": 301.96,
             "max_price": 409.0
           }
         ],
@@ -3811,6 +3827,14 @@
             "median_price": 295.0,
             "avg_price": 309.36,
             "max_price": 409.0
+          },
+          {
+            "search_date": "11-17 11:53",
+            "iso_ts": "2026-11-17 11:53",
+            "min_price": 262.0,
+            "median_price": 295.0,
+            "avg_price": 294.56,
+            "max_price": 339.0
           }
         ]
       },
@@ -5145,6 +5169,14 @@
             "median_price": 190.0,
             "avg_price": 181.68,
             "max_price": 195.0
+          },
+          {
+            "search_date": "11-17 11:53",
+            "iso_ts": "2026-11-17 11:53",
+            "min_price": 151.0,
+            "median_price": 190.0,
+            "avg_price": 181.68,
+            "max_price": 195.0
           }
         ]
       }
@@ -5174,14 +5206,14 @@
       {
         "time_str": "16:55",
         "hour": 16.92,
-        "price": 304.78,
+        "price": 300.81,
         "airline": "Ryanair",
         "departure_date": "2027-01-03"
       },
       {
         "time_str": "13:05",
         "hour": 13.08,
-        "price": 409.0,
+        "price": 339.0,
         "airline": "Vueling",
         "departure_date": "2027-01-03"
       },
@@ -5330,8 +5362,8 @@
         "flight_number": "FR 133",
         "departure_time": "16:55",
         "arrival_time": "19:35",
-        "price": 304.78,
-        "price_str": "EUR 304.78",
+        "price": 300.81,
+        "price_str": "EUR 300.81",
         "date": "2027-01-03"
       },
       {
@@ -5339,8 +5371,8 @@
         "flight_number": "VY 1882",
         "departure_time": "13:05",
         "arrival_time": "15:45",
-        "price": 409.0,
-        "price_str": "EUR 409.00",
+        "price": 339.0,
+        "price_str": "EUR 339.00",
         "date": "2027-01-03"
       }
     ],
